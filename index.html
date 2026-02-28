@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TON TEMPLE</title>
+  <style>
+    :root {
+      --bg: #070707;
+      --gold: #d8b35a;
+      --gold2: #a57c2a;
+      --text: #f2f2f2;
+    }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: radial-gradient(1200px 800px at 50% 25%, #14110b 0%, var(--bg) 55%, #000 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    .safe {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 18px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: .95;
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .badge {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(216,179,90,.55);
+      box-shadow: 0 0 24px rgba(216,179,90,.18);
+      display: grid; place-items: center;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .brand-title {
+      line-height: 1.05;
+    }
+    .brand-title b { letter-spacing: .8px; }
+    .brand-title small { display:block; opacity:.7; font-size: 12px; margin-top: 2px; }
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 18px 16px;
+    }
+    .card {
+      width: min(420px, 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(216,179,90,.28);
+      background: linear-gradient(180deg, rgba(20,17,11,.75), rgba(7,7,7,.75));
+      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+      padding: 18px;
+    }
+    .hero {
+      height: 260px;
+      border-radius: 18px;
+      border: 1px solid rgba(216,179,90,.22);
+      background:
+        radial-gradient(160px 120px at 50% 45%, rgba(216,179,90,.22), transparent 60%),
+        radial-gradient(240px 180px at 50% 55%, rgba(216,179,90,.10), transparent 70%),
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero:before {
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 0deg, transparent 0 30%, rgba(216,179,90,.18) 40%, transparent 55% 100%);
+      animation: spin 8s linear infinite;
+      filter: blur(1px);
+      opacity: .8;
+    }
+    .sig {
+      position: relative;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 1px solid rgba(216,179,90,.55);
+      box-shadow: 0 0 40px rgba(216,179,90,.18);
+      display: grid; place-items: center;
+      color: var(--gold);
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: radial-gradient(circle at 30% 30%, rgba(216,179,90,.16), transparent 55%);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .cta {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+    }
+    .btn {
+      height: 52px;
+      border-radius: 16px;
+      border: 1px solid rgba(216,179,90,.45);
+      background: linear-gradient(180deg, rgba(216,179,90,.18), rgba(165,124,42,.10));
+      color: var(--text);
+      font-weight: 650;
+      letter-spacing: .4px;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(0,0,0,.55);
+    }
+    .sub {
+      opacity: .75;
+      font-size: 13px;
+      line-height: 1.35;
+      text-align: center;
+    }
+    footer {
+      padding: 14px 16px 18px;
+      opacity: .55;
+      font-size: 12px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="safe">
+    <header>
+      <div class="brand">
+        <div class="badge">財</div>
+        <div class="brand-title">
+          <b>TON TEMPLE</b>
+          <small>Black Gold Ritual Interface</small>
+        </div>
+      </div>
+      <div style="opacity:.7;font-size:12px;">RU</div>
+    </header>
+
+    <main>
+      <div class="card">
+        <div class="hero">
+          <div class="sig">財</div>
+        </div>
+
+        <div class="cta">
+          <button class="btn" id="openRitual">🏮 Открыть ритуал</button>
+          <div class="sub">Первый экран. Дальше подключим колесо и твой дизайн 1:1.</div>
+        </div>
+      </div>
+    </main>
+
+    <footer>TON TEMPLE • v0.1</footer>
+  </div>
+
+  <script>
+    // Заглушка на кнопку
+    document.getElementById("openRitual").addEventListener("click", () => {
+      alert("Дальше подключим Wheel + Guidance + Telegram API");
+    });
+  </script>
+</body>
+</html>
