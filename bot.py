@@ -1,19 +1,31 @@
 import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
 # 🔑 ВСТАВЬ СЮДА СВОЙ ТОКЕН ОТ @BotFather
 TOKEN = "8429740565:AAGORVe9PAPbDjhQcubjijMDoLXs2a3iEBo"
 
+WEBAPP_URL = "https://ton-temple.vercel.app/"
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-def main_kb():
+def main_kb() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="🏮 Открыть TON TEMPLE", url="https://example.com")],
-            [InlineKeyboardButton(text="ℹ️ Как это работает", callback_data="how")]
+            [
+                InlineKeyboardButton(
+                    text="🏮 Открыть TON TEMPLE",
+                    web_app=WebAppInfo(url=WEBAPP_URL),
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    text="ℹ️ Как это работает",
+                    callback_data="how",
+                )
+            ],
         ]
     )
 

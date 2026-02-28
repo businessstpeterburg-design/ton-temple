@@ -166,5 +166,19 @@
       alert("Дальше подключим Wheel + Guidance + Telegram API");
     });
   </script>
-</body>
-</html>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  const tg = window.Telegram?.WebApp;
+
+  if (tg) {
+    tg.ready();
+    tg.expand();
+  }
+
+  document.getElementById("openRitual").addEventListener("click", () => {
+    if (tg?.HapticFeedback) {
+      tg.HapticFeedback.impactOccurred("medium");
+    }
+    alert("Дальше подключим Wheel + Guidance + Telegram API");
+  });
+</script>
