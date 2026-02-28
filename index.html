@@ -32,11 +32,7 @@
       justify-content: space-between;
       opacity: .95;
     }
-    .brand {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
+    .brand { display:flex; gap:10px; align-items:center; }
     .badge {
       width: 34px; height: 34px;
       border-radius: 50%;
@@ -46,17 +42,12 @@
       color: var(--gold);
       font-weight: 700;
     }
-    .brand-title {
-      line-height: 1.05;
-    }
+    .brand-title { line-height: 1.05; }
     .brand-title b { letter-spacing: .8px; }
     .brand-title small { display:block; opacity:.7; font-size: 12px; margin-top: 2px; }
-    main {
-      flex: 1;
-      display: grid;
-      place-items: center;
-      padding: 18px 16px;
-    }
+
+    main { flex: 1; display: grid; place-items: center; padding: 18px 16px; }
+
     .card {
       width: min(420px, 100%);
       border-radius: 22px;
@@ -101,11 +92,7 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .cta {
-      margin-top: 14px;
-      display: grid;
-      gap: 10px;
-    }
+    .cta { margin-top: 14px; display: grid; gap: 10px; }
     .btn {
       height: 52px;
       border-radius: 16px;
@@ -117,18 +104,18 @@
       cursor: pointer;
       box-shadow: 0 10px 26px rgba(0,0,0,.55);
     }
-    .sub {
-      opacity: .75;
-      font-size: 13px;
-      line-height: 1.35;
-      text-align: center;
+    .sub { opacity: .75; font-size: 13px; line-height: 1.35; text-align: center; }
+
+    .ritualBox {
+      display:none;
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(216,179,90,.22);
+      background: rgba(0,0,0,.25);
     }
-    footer {
-      padding: 14px 16px 18px;
-      opacity: .55;
-      font-size: 12px;
-      text-align: center;
-    }
+
+    footer { padding: 14px 16px 18px; opacity: .55; font-size: 12px; text-align: center; }
   </style>
 </head>
 <body>
@@ -152,33 +139,43 @@
 
         <div class="cta">
           <button class="btn" id="openRitual">🏮 Открыть ритуал</button>
-          <div class="sub">Первый экран. Дальше подключим колесо и твой дизайн 1:1.</div>
+
+          <div class="ritualBox" id="ritualScreen">
+            <div style="font-weight:700; letter-spacing:.4px; margin-bottom:8px;">RITUAL</div>
+            <div style="opacity:.8; font-size:13px; line-height:1.4;">
+              Здесь будет колесо, guidance и твой премиум-интерфейс 1:1 по макету.
+            </div>
+            <button class="btn" id="backHome" style="margin-top:12px;">← Назад</button>
+          </div>
+
+          <div class="sub">v0.2 • UI skeleton + Telegram API + Ritual state</div>
         </div>
       </div>
     </main>
 
-    <footer>TON TEMPLE • v0.1</footer>
+    <footer>TON TEMPLE</footer>
   </div>
 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // Заглушка на кнопку
-    document.getElementById("openRitual").addEventListener("click", () => {
-      alert("Дальше подключим Wheel + Guidance + Telegram API");
+    const tg = window.Telegram?.WebApp;
+    if (tg) { tg.ready(); tg.expand(); }
+
+    const ritualScreen = document.getElementById("ritualScreen");
+    const openBtn = document.getElementById("openRitual");
+    const backBtn = document.getElementById("backHome");
+
+    openBtn.addEventListener("click", () => {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
+      ritualScreen.style.display = "block";
+      openBtn.style.display = "none";
+    });
+
+    backBtn.addEventListener("click", () => {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
+      ritualScreen.style.display = "none";
+      openBtn.style.display = "block";
     });
   </script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-  const tg = window.Telegram?.WebApp;
-
-  if (tg) {
-    tg.ready();
-    tg.expand();
-  }
-
-  document.getElementById("openRitual").addEventListener("click", () => {
-    if (tg?.HapticFeedback) {
-      tg.HapticFeedback.impactOccurred("medium");
-    }
-    alert("Дальше подключим Wheel + Guidance + Telegram API");
-  });
-</script>
+</body>
+</html>
