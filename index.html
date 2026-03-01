@@ -4,36 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>TON TEMPLE</title>
-
   <style>
     :root{
-      --bg0:#050505;
+      --bg:#060606;
       --gold:#d8b35a;
       --text:#f2f2f2;
-      --muted:rgba(242,242,242,.72);
+      --muted:rgba(242,242,242,.70);
       --line:rgba(216,179,90,.22);
       --line2:rgba(216,179,90,.12);
-      --shadow: 0 24px 70px rgba(0,0,0,.6);
-
+      --shadow:0 24px 70px rgba(0,0,0,.60);
       --safeT: env(safe-area-inset-top);
       --safeB: env(safe-area-inset-bottom);
       --safeL: env(safe-area-inset-left);
       --safeR: env(safe-area-inset-right);
     }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+    html,body{height:100%;margin:0}
     body{
-      margin:0;
-      color:var(--text);
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(1200px 800px at 50% 22%, #14110b 0%, #080808 55%, #000 100%);
+      background: radial-gradient(1200px 800px at 50% 18%, #15120b 0%, #090909 55%, #000 100%);
+      color:var(--text);
+      user-select:none; -webkit-user-select:none;
       overflow-x:hidden;
-      -webkit-user-select:none;
-      user-select:none;
     }
-
     .app{
       min-height:100vh;
       padding:
@@ -41,346 +34,158 @@
         calc(14px + var(--safeR))
         calc(14px + var(--safeB))
         calc(14px + var(--safeL));
+      display:flex;
+      flex-direction:column;
+      gap:14px;
     }
 
-    /* TOP BAR */
+    /* HEADER */
     .topbar{
+      max-width:980px;
+      width:100%;
+      margin:0 auto;
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap:12px;
-      max-width:1100px;
-      margin:0 auto 14px auto;
     }
-
     .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 200px;
+      display:flex; align-items:center; gap:10px;
+      min-width:160px;
     }
     .mark{
-      width:28px;height:28px;
-      border-radius:12px;
-      display:grid;place-items:center;
+      width:28px;height:28px;border-radius:12px;
       border:1px solid var(--line);
       background:
-        radial-gradient(50px 50px at 30% 30%, rgba(216,179,90,.22), rgba(0,0,0,0) 60%),
-        rgba(0,0,0,.25);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+        radial-gradient(60px 60px at 30% 25%, rgba(216,179,90,.22), transparent 60%),
+        rgba(0,0,0,.22);
+      display:grid; place-items:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
       flex:0 0 auto;
     }
-    .mark span{
-      font-weight:700;
-      letter-spacing:.06em;
-      color:var(--gold);
-      transform: translateY(-.5px);
-    }
-    .titles{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1;
-      min-width:0;
-    }
-    .titles .h{
-      font-weight:800;
-      letter-spacing:.08em;
-      white-space:nowrap;
-    }
-    .titles .s{
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.02em;
-      margin-top:3px;
-      white-space:nowrap;
-    }
+    .mark span{color:var(--gold); font-weight:800; letter-spacing:.06em}
+    .titles{line-height:1.12}
+    .titles .h{font-weight:900; letter-spacing:.10em; white-space:nowrap}
+    .titles .s{font-size:12px; color:var(--muted); margin-top:2px; white-space:nowrap}
 
-    .controlsWrap{
-      flex: 1 1 auto;
-      display:flex;
-      justify-content:center;
-      min-width:0;
-    }
-
-    /* 2-row controls container */
+    .controlsWrap{flex:1; display:flex; justify-content:center; min-width:0;}
     .controls2{
       display:grid;
-      grid-template-rows: auto auto;
+      grid-template-rows:auto auto;
       gap:8px;
       padding:8px 10px;
-      border-radius: 999px;
+      border-radius:999px;
       border:1px solid var(--line2);
-      background: rgba(0,0,0,.18);
-      box-shadow: 0 16px 50px rgba(0,0,0,.35);
-      max-width: 100%;
+      background:rgba(0,0,0,.18);
+      box-shadow:0 16px 50px rgba(0,0,0,.35);
+      max-width:100%;
     }
-
     .row{
       display:grid;
-      grid-template-columns: auto auto auto; /* RITUAL PRO ?  /  中文 EN 🔊 */
+      grid-template-columns:auto auto auto;
       gap:8px;
       justify-content:center;
       align-items:center;
       white-space:nowrap;
     }
-
     .pill{
-      appearance:none;
       border:1px solid rgba(216,179,90,.18);
-      background: rgba(0,0,0,.25);
-      color: rgba(242,242,242,.86);
+      background:rgba(0,0,0,.24);
+      color:rgba(242,242,242,.88);
       padding:10px 16px;
-      border-radius: 999px;
-      font-weight:800;
-      letter-spacing:.10em;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:.12em;
       text-transform:uppercase;
       font-size:12px;
       cursor:pointer;
-      transition: .18s ease;
-      line-height:1;
     }
-    .pill.lang{
-      letter-spacing:.04em;
-      text-transform:none;
-      font-weight:900;
-    }
+    .pill.lang{letter-spacing:.04em; text-transform:none}
     .pill.active{
+      color:var(--gold);
+      border-color:rgba(216,179,90,.35);
       background:
-        radial-gradient(120px 60px at 30% 20%, rgba(216,179,90,.18), rgba(0,0,0,0) 60%),
-        rgba(216,179,90,.10);
-      border-color: rgba(216,179,90,.35);
-      color: var(--gold);
-      box-shadow: 0 10px 30px rgba(216,179,90,.10);
+        radial-gradient(120px 60px at 30% 20%, rgba(216,179,90,.18), transparent 60%),
+        rgba(216,179,90,.08);
+      box-shadow:0 10px 30px rgba(216,179,90,.10);
     }
-    .pill:active{transform: translateY(1px)}
-
     .iconPill{
       width:44px;
       padding:10px 0;
-      display:grid;
-      place-items:center;
-      border-radius: 999px;
+      border-radius:999px;
       border:1px solid rgba(216,179,90,.18);
-      background: rgba(0,0,0,.25);
-      color: rgba(242,242,242,.92);
+      background:rgba(0,0,0,.24);
+      color:rgba(242,242,242,.92);
       cursor:pointer;
-      transition:.18s ease;
-      line-height:1;
+      display:grid; place-items:center;
     }
-    .iconPill:active{transform: translateY(1px)}
-    .iconPill svg{opacity:.92}
+    .pill:active,.iconPill:active{transform:translateY(1px)}
 
-    .actionsRight{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex:0 0 auto;
-      visibility:hidden; /* мы переносим ? и звук в центр (две строки) */
-      width:0;height:0;overflow:hidden;
-    }
-
-    /* MAIN */
+    /* MAIN CARD */
     .main{
-      max-width:1100px;
+      max-width:980px;
+      width:100%;
       margin:0 auto;
       display:grid;
       place-items:center;
     }
-
     .frame{
       width:min(520px, 100%);
-      border-radius: 28px;
-      padding:18px;
+      border-radius:28px;
+      padding:14px;
       border:1px solid rgba(216,179,90,.12);
       background:
-        radial-gradient(900px 650px at 50% 18%, rgba(216,179,90,.10), rgba(0,0,0,0) 55%),
+        radial-gradient(900px 650px at 50% 18%, rgba(216,179,90,.10), transparent 55%),
         rgba(0,0,0,.18);
-      box-shadow: var(--shadow);
+      box-shadow:var(--shadow);
     }
-
     .card{
-      border-radius: 26px;
-      border:1px solid rgba(216,179,90,.16);
-      background:
-        radial-gradient(700px 420px at 50% 20%, rgba(216,179,90,.12), rgba(0,0,0,0) 60%),
-        rgba(0,0,0,.20);
-      padding:18px;
-      overflow:hidden;
-    }
-
-    .wheelBox{
-      border-radius: 22px;
+      border-radius:24px;
       border:1px solid rgba(216,179,90,.14);
-      background:
-        radial-gradient(520px 520px at 50% 45%, rgba(216,179,90,.10), rgba(0,0,0,0) 60%),
-        rgba(0,0,0,.18);
-      height: 360px;
-      display:grid;
-      place-items:center;
-      position:relative;
-    }
-
-    .wheelCircle{
-      width: 250px;
-      height: 250px;
-      border-radius: 999px;
-      border:1px solid rgba(216,179,90,.18);
-      box-shadow: inset 0 0 0 1px rgba(216,179,90,.06);
-      display:grid;
-      place-items:center;
-      background:
-        radial-gradient(280px 220px at 30% 25%, rgba(216,179,90,.10), rgba(0,0,0,0) 55%),
-        rgba(0,0,0,.22);
-    }
-    .wheelCircle .sig{
-      font-weight:900;
-      font-size:58px;
-      color: rgba(216,179,90,.90);
-      letter-spacing:.02em;
-    }
-
-    .cta{
-      width:100%;
-      margin-top:14px;
-      padding:14px 16px;
-      border-radius: 18px;
-      border:1px solid rgba(216,179,90,.20);
-      background:
-        radial-gradient(240px 120px at 30% 20%, rgba(216,179,90,.18), rgba(0,0,0,0) 60%),
-        rgba(0,0,0,.22);
-      color: rgba(242,242,242,.92);
-      font-weight:900;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      cursor:pointer;
-      transition:.18s ease;
-      box-shadow: 0 18px 55px rgba(0,0,0,.45);
-    }
-    .cta:active{transform: translateY(1px)}
-
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    .subBtn{
-      padding:12px 14px;
-      border-radius: 18px;
-      border:1px solid rgba(216,179,90,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(242,242,242,.88);
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      cursor:pointer;
-      transition:.18s ease;
-    }
-    .subBtn:active{transform: translateY(1px)}
-
-    .panel{
-      margin-top:14px;
-      border-radius: 22px;
-      border:1px solid rgba(216,179,90,.14);
-      background: rgba(0,0,0,.18);
+      background:rgba(0,0,0,.18);
       padding:14px;
     }
-    .panelTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .tag{
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      opacity:.92;
-    }
-    .chips{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .chip{
-      padding:8px 12px;
-      border-radius: 999px;
+    .wheelBox{
+      height:320px;
+      border-radius:22px;
       border:1px solid rgba(216,179,90,.14);
-      background: rgba(0,0,0,.18);
-      color: rgba(242,242,242,.80);
-      font-weight:800;
-      font-size:12px;
-      letter-spacing:.08em;
+      background:
+        radial-gradient(520px 520px at 50% 45%, rgba(216,179,90,.10), transparent 60%),
+        rgba(0,0,0,.18);
+      display:grid; place-items:center;
     }
-    .chip.active{
-      border-color: rgba(216,179,90,.34);
-      color: var(--gold);
-      background: rgba(216,179,90,.08);
+    .wheelCircle{
+      width:230px;height:230px;border-radius:999px;
+      border:1px solid rgba(216,179,90,.18);
+      background:
+        radial-gradient(280px 220px at 30% 25%, rgba(216,179,90,.10), transparent 55%),
+        rgba(0,0,0,.22);
+      display:grid; place-items:center;
     }
-
-    .panelBody{
+    .wheelCircle .sig{font-size:54px;font-weight:900;color:rgba(216,179,90,.90)}
+    .cta{
+      width:100%;
       margin-top:12px;
-      color: rgba(242,242,242,.86);
-      line-height:1.45;
-    }
-    .panelBody .label{
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      opacity:.85;
-      margin-bottom:8px;
-    }
-    .panelBody .text{
-      font-size:16px;
-      color: rgba(242,242,242,.90);
-    }
-
-    .panelActions{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:10px;
-      margin-top:12px;
-    }
-    .miniBtn{
-      padding:12px 12px;
-      border-radius: 18px;
-      border:1px solid rgba(216,179,90,.14);
-      background: rgba(0,0,0,.16);
-      color: rgba(242,242,242,.88);
+      padding:14px 16px;
+      border-radius:18px;
+      border:1px solid rgba(216,179,90,.20);
+      background:
+        radial-gradient(240px 120px at 30% 20%, rgba(216,179,90,.18), transparent 60%),
+        rgba(0,0,0,.22);
+      color:rgba(242,242,242,.92);
       font-weight:900;
       letter-spacing:.14em;
       text-transform:uppercase;
       cursor:pointer;
-      transition:.18s ease;
-    }
-    .miniBtn:active{transform: translateY(1px)}
-
-    .foot{
-      margin-top:12px;
-      text-align:center;
-      font-size:12px;
-      color: rgba(242,242,242,.55);
+      box-shadow:0 18px 55px rgba(0,0,0,.45);
     }
 
-    @media (max-width: 520px){
-      .brand{min-width:0}
-      .titles .h{font-size:14px}
-      .wheelBox{height: 320px}
-      .wheelCircle{width: 230px; height:230px}
-      .wheelCircle .sig{font-size:54px}
-      .frame{padding:14px;border-radius:24px}
-      .card{padding:14px;border-radius:22px}
-
-      /* критично: на маленьких экранах делаем компактнее кнопки в шапке */
-      .pill{padding:9px 14px;font-size:12px}
+    @media (max-width:390px){
+      .pill{padding:9px 14px; font-size:12px}
       .iconPill{width:40px}
-      .controls2{padding:8px 8px}
     }
   </style>
 </head>
-
 <body>
   <div class="app">
     <div class="topbar">
@@ -393,36 +198,19 @@
       </div>
 
       <div class="controlsWrap">
-        <div class="controls2" aria-label="Top controls 2-row">
-          <div class="row" aria-label="Row 1">
+        <div class="controls2">
+          <div class="row">
             <button class="pill active" id="btnRitual">RITUAL</button>
             <button class="pill" id="btnPro">PRO</button>
-
-            <button class="iconPill" id="btnHelp" title="Help">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M9.6 9.1a2.6 2.6 0 1 1 4.4 1.9c-.9.8-1.6 1.2-1.6 2.4v.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M12 18h0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-                <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="currentColor" stroke-width="1.3" opacity=".75"/>
-              </svg>
-            </button>
+            <button class="iconPill" id="btnHelp" title="Help">?</button>
           </div>
-
-          <div class="row" aria-label="Row 2">
+          <div class="row">
             <button class="pill lang active" id="btnZh">中文</button>
             <button class="pill lang" id="btnEn">EN</button>
-
-            <button class="iconPill" id="btnSound" title="Sound">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                <path d="M15.5 8.5c1.2 1.2 1.2 5.8 0 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-                <path d="M18 6c2.4 2.4 2.4 9.6 0 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" opacity=".8"/>
-              </svg>
-            </button>
+            <button class="iconPill" id="btnSound" title="Sound">🔊</button>
           </div>
         </div>
       </div>
-
-      <div class="actionsRight" aria-hidden="true"></div>
     </div>
 
     <div class="main">
@@ -431,37 +219,7 @@
           <div class="wheelBox">
             <div class="wheelCircle"><div class="sig">财</div></div>
           </div>
-
-          <button class="cta" id="activate">ACTIVATE FLOW</button>
-
-          <div class="row2">
-            <button class="subBtn" id="oracle">ORACLE</button>
-            <button class="subBtn" id="altar">GOLDEN ALTAR</button>
-          </div>
-
-          <div class="panel">
-            <div class="panelTop">
-              <div class="tag" id="lblForecast">FORECAST</div>
-              <div class="chips">
-                <div class="chip active" id="chipDay">DAY</div>
-                <div class="chip" id="chipTon">TON</div>
-                <div class="chip" id="chipLimit">LIMIT: 1/1</div>
-              </div>
-            </div>
-
-            <div class="panelBody">
-              <div class="label" id="lblGuidance">TEMPLE GUIDANCE:</div>
-              <div class="text" id="guidanceText">信号：不要分散注意力。一步——一个结果。</div>
-            </div>
-
-            <div class="panelActions">
-              <button class="miniBtn" id="enter">ENTER</button>
-              <button class="miniBtn" id="wait">WAIT</button>
-              <button class="miniBtn" id="skip">SKIP</button>
-            </div>
-
-            <div class="foot" id="disclaimer">Ritualized interface. Not financial advice.</div>
-          </div>
+          <button class="cta" id="activate">启动流</button>
         </div>
       </div>
     </div>
@@ -472,708 +230,42 @@
     const tg = window.Telegram?.WebApp;
     if (tg) { tg.ready(); tg.expand(); }
 
-    let lang = "zh";   // default Chinese
+    let lang = "zh";
     let soundOn = true;
 
     const i18n = {
-      zh: {
-        activate: "ACTIVATE FLOW",
-        oracle: "ORACLE",
-        altar: "GOLDEN ALTAR",
-        forecast: "FORECAST",
-        guidance: "TEMPLE GUIDANCE:",
-        text: "信号：不要分散注意力。一步——一个结果。",
-        enter: "ENTER",
-        wait: "WAIT",
-        skip: "SKIP",
-        disclaimer: "Ritualized interface. Not financial advice.",
-        helpTitle: "TON TEMPLE",
-        helpMsg: "这是仪式界面原型。接下来接入轮盘与逻辑。"
-      },
-      en: {
-        activate: "ACTIVATE FLOW",
-        oracle: "ORACLE",
-        altar: "GOLDEN ALTAR",
-        forecast: "FORECAST",
-        guidance: "TEMPLE GUIDANCE:",
-        text: "Signal: don’t scatter attention. One step — one result.",
-        enter: "ENTER",
-        wait: "WAIT",
-        skip: "SKIP",
-        disclaimer: "Ritualized interface. Not financial advice.",
-        helpTitle: "TON TEMPLE",
-        helpMsg: "This is the ritual UI prototype. Next: wheel + logic."
-      }
+      zh: { activate: "启动流", help: "这是第一屏原型。下一步：接入轮盘图层 + 旋转逻辑。" },
+      en: { activate: "ACTIVATE FLOW", help: "This is the first screen prototype. Next: wheel layers + spin logic." }
     };
 
+    function setActive(onId, offIds){
+      document.getElementById(onId).classList.add("active");
+      offIds.forEach(x => document.getElementById(x).classList.remove("active"));
+    }
     function render(){
-      const t = i18n[lang];
-      document.getElementById("activate").textContent = t.activate;
-      document.getElementById("oracle").textContent = t.oracle;
-      document.getElementById("altar").textContent = t.altar;
-      document.getElementById("lblForecast").textContent = t.forecast;
-      document.getElementById("lblGuidance").textContent = t.guidance;
-      document.getElementById("guidanceText").textContent = t.text;
-      document.getElementById("enter").textContent = t.enter;
-      document.getElementById("wait").textContent = t.wait;
-      document.getElementById("skip").textContent = t.skip;
-      document.getElementById("disclaimer").textContent = t.disclaimer;
+      document.getElementById("activate").textContent = i18n[lang].activate;
       document.documentElement.lang = (lang === "zh" ? "zh" : "en");
     }
 
-    function setActivePill(idOn, idsOff){
-      document.getElementById(idOn).classList.add("active");
-      idsOff.forEach(x => document.getElementById(x).classList.remove("active"));
-    }
+    document.getElementById("btnRitual").addEventListener("click", ()=> setActive("btnRitual", ["btnPro"]));
+    document.getElementById("btnPro").addEventListener("click", ()=> setActive("btnPro", ["btnRitual"]));
 
-    // RITUAL / PRO
-    document.getElementById("btnRitual").addEventListener("click", ()=>{
-      setActivePill("btnRitual", ["btnPro"]);
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-    });
-    document.getElementById("btnPro").addEventListener("click", ()=>{
-      setActivePill("btnPro", ["btnRitual"]);
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-    });
+    document.getElementById("btnZh").addEventListener("click", ()=> { lang="zh"; setActive("btnZh", ["btnEn"]); render(); });
+    document.getElementById("btnEn").addEventListener("click", ()=> { lang="en"; setActive("btnEn", ["btnZh"]); render(); });
 
-    // 中文 / EN
-    document.getElementById("btnZh").addEventListener("click", ()=>{
-      lang="zh";
-      setActivePill("btnZh", ["btnEn"]);
-      render();
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-    });
-    document.getElementById("btnEn").addEventListener("click", ()=>{
-      lang="en";
-      setActivePill("btnEn", ["btnZh"]);
-      render();
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-    });
-
-    // Help
     document.getElementById("btnHelp").addEventListener("click", ()=>{
-      const t = i18n[lang];
-      if (tg?.showPopup) {
-        tg.showPopup({ title: t.helpTitle, message: t.helpMsg, buttons: [{type:"ok"}] });
-      } else {
-        alert(t.helpTitle + "\\n" + t.helpMsg);
-      }
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
+      const msg = i18n[lang].help;
+      if (tg?.showPopup) tg.showPopup({ title:"TON TEMPLE", message: msg, buttons:[{type:"ok"}] });
+      else alert(msg);
     });
 
-    // Sound
     document.getElementById("btnSound").addEventListener("click", ()=>{
       soundOn = !soundOn;
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-    });
-
-    // Main CTA
-    document.getElementById("activate").addEventListener("click", ()=>{
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
-      if (tg?.showToast) tg.showToast("ACTIVATE FLOW");
-      else alert("ACTIVATE FLOW");
-    });
-
-    ["oracle","altar","enter","wait","skip"].forEach(id=>{
-      document.getElementById(id).addEventListener("click", ()=>{
-        if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-      });
+      document.getElementById("btnSound").textContent = soundOn ? "🔊" : "🔇";
+      tg?.HapticFeedback?.impactOccurred?.("light");
     });
 
     render();
-  </script>
-</body>
-</html><!doctype html>
-<html lang="zh">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>TON TEMPLE</title>
-
-  <style>
-    :root{
-      --bg0:#040404;
-      --bg1:#0b0b0b;
-      --gold:#d8b35a;
-      --gold2:#9a7b2c;
-      --gold3:#5a4318;
-      --text:#f2f2f2;
-      --muted:rgba(255,255,255,.68);
-      --glass:rgba(255,255,255,.04);
-      --stroke:rgba(216,179,90,.22);
-      --stroke2:rgba(216,179,90,.14);
-      --shadow:0 12px 40px rgba(0,0,0,.55);
-      --radius:22px;
-      --pillRadius:999px;
-    }
-
-    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height:100%; margin:0; }
-    body{
-      background:
-        radial-gradient(1200px 800px at 50% 18%, rgba(216,179,90,.10) 0%, rgba(216,179,90,.04) 28%, rgba(0,0,0,0) 60%),
-        radial-gradient(1100px 700px at 65% 55%, rgba(216,179,90,.06) 0%, rgba(0,0,0,0) 58%),
-        linear-gradient(180deg, #050505 0%, #000 100%);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      overflow-x:hidden;
-      user-select:none;
-      -webkit-user-select:none;
-    }
-
-    /* Safe area */
-    .safe{
-      padding-top: calc(env(safe-area-inset-top, 0px) + 10px);
-      padding-left: calc(env(safe-area-inset-left, 0px) + 14px);
-      padding-right: calc(env(safe-area-inset-right, 0px) + 14px);
-      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
-      min-height: 100%;
-    }
-
-    /* Header */
-    .topbar{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      width:100%;
-      max-width: 980px;
-      margin:0 auto;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 170px;
-      flex: 1 1 220px;
-    }
-
-    .logo{
-      width:34px; height:34px;
-      border-radius: 10px;
-      display:grid; place-items:center;
-      color: var(--gold);
-      border:1px solid var(--stroke);
-      background: radial-gradient(120% 120% at 30% 20%, rgba(216,179,90,.18) 0%, rgba(255,255,255,.02) 55%, rgba(0,0,0,.0) 100%);
-      box-shadow: 0 10px 30px rgba(0,0,0,.45);
-      font-weight: 800;
-      letter-spacing:.5px;
-    }
-
-    .brandText{ line-height:1.05; }
-    .brandTitle{
-      font-weight: 800;
-      letter-spacing: .9px;
-      font-size: 14px;
-    }
-    .brandSub{
-      font-size: 12px;
-      color: rgba(255,255,255,.55);
-      margin-top: 3px;
-      letter-spacing:.2px;
-    }
-
-    .pillGroup{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex: 0 1 auto;
-      justify-content:center;
-    }
-
-    .pill{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      padding:6px;
-      border-radius: var(--pillRadius);
-      border:1px solid var(--stroke2);
-      background: linear-gradient(180deg, rgba(255,255,255,.05) 0%, rgba(0,0,0,.10) 100%);
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      white-space: nowrap;
-    }
-
-    .pillBtn{
-      border:0;
-      padding:8px 12px;
-      border-radius: var(--pillRadius);
-      background: transparent;
-      color: rgba(255,255,255,.72);
-      font-weight: 700;
-      letter-spacing: 1px;
-      font-size: 12px;
-      cursor:pointer;
-    }
-    .pillBtn.active{
-      color:#0b0b0b;
-      background: linear-gradient(180deg, rgba(216,179,90,.95) 0%, rgba(154,123,44,.92) 100%);
-      box-shadow: 0 10px 22px rgba(216,179,90,.12);
-    }
-
-    .icons{
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap:10px;
-      flex: 1 1 160px;
-      min-width: 110px;
-    }
-    .iconBtn{
-      width:34px; height:34px;
-      border-radius: 12px;
-      border:1px solid var(--stroke2);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.85);
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35);
-    }
-    .iconBtn:active{ transform: translateY(1px); }
-
-    /* Main layout */
-    .wrap{
-      width:100%;
-      max-width: 980px;
-      margin: 16px auto 0 auto;
-    }
-
-    .stage{
-      width:100%;
-      display:flex;
-      justify-content:center;
-    }
-
-    .panel{
-      width:min(520px, 100%);
-      border-radius: var(--radius);
-      border:1px solid var(--stroke2);
-      background:
-        radial-gradient(120% 120% at 30% 20%, rgba(216,179,90,.10) 0%, rgba(255,255,255,.02) 55%, rgba(0,0,0,.0) 100%),
-        rgba(255,255,255,.02);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .frame{
-      border-radius: 18px;
-      border:1px solid rgba(216,179,90,.18);
-      background: rgba(0,0,0,.20);
-      height: min(56vh, 420px);
-      min-height: 280px;
-      display:grid;
-      place-items:center;
-      position:relative;
-    }
-
-    .wheelPlaceholder{
-      width: min(320px, 74vw);
-      aspect-ratio: 1 / 1;
-      border-radius: 999px;
-      border:1px solid rgba(216,179,90,.22);
-      display:grid;
-      place-items:center;
-      color: rgba(216,179,90,.85);
-      letter-spacing: 2px;
-      font-weight: 900;
-      font-size: 46px;
-      background:
-        radial-gradient(70% 70% at 30% 30%, rgba(216,179,90,.10) 0%, rgba(0,0,0,.0) 55%),
-        rgba(0,0,0,.18);
-    }
-
-    .cta{
-      width:100%;
-      margin-top: 14px;
-      padding: 16px 16px;
-      border-radius: 16px;
-      border:1px solid rgba(216,179,90,.28);
-      background: linear-gradient(180deg, rgba(216,179,90,.20) 0%, rgba(0,0,0,.12) 100%);
-      color: rgba(255,255,255,.88);
-      font-weight: 900;
-      letter-spacing: 2px;
-      cursor:pointer;
-      box-shadow: 0 14px 30px rgba(0,0,0,.45);
-    }
-    .cta:active{ transform: translateY(1px); }
-
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .subBtn{
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(216,179,90,.18);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.80);
-      font-weight: 800;
-      letter-spacing: 2px;
-      cursor:pointer;
-      box-shadow: 0 12px 22px rgba(0,0,0,.35);
-    }
-    .subBtn:active{ transform: translateY(1px); }
-
-    .card{
-      margin-top: 14px;
-      border-radius: 18px;
-      border:1px solid rgba(216,179,90,.16);
-      background: rgba(255,255,255,.02);
-      padding: 14px;
-    }
-
-    .meta{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
-
-    .metaLeft{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,.82);
-    }
-
-    .chips{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .chip{
-      padding: 8px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(216,179,90,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.74);
-      font-weight: 800;
-      letter-spacing: 1px;
-      font-size: 12px;
-    }
-    .chip.active{
-      border-color: rgba(216,179,90,.35);
-      color: rgba(216,179,90,.95);
-      background: rgba(216,179,90,.08);
-    }
-
-    .guidanceTitle{
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,.85);
-      margin: 6px 0 10px;
-    }
-    .guidanceText{
-      color: rgba(255,255,255,.74);
-      font-size: 15px;
-      line-height: 1.45;
-      margin-bottom: 10px;
-      min-height: 44px;
-    }
-
-    .actions{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .act{
-      padding: 12px 10px;
-      border-radius: 14px;
-      border:1px solid rgba(216,179,90,.16);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.80);
-      font-weight: 900;
-      letter-spacing: 2px;
-      cursor:pointer;
-    }
-    .act:active{ transform: translateY(1px); }
-
-    .foot{
-      margin-top: 14px;
-      text-align:center;
-      color: rgba(255,255,255,.40);
-      font-size: 12px;
-      letter-spacing: .6px;
-    }
-
-    /* Mobile compression */
-    @media (max-width: 520px){
-      .brand{ min-width: 150px; }
-      .brandTitle{ font-size: 13px; }
-      .pillBtn{ padding: 8px 10px; font-size: 12px; }
-      .icons{ min-width: 86px; }
-      .iconBtn{ width: 32px; height: 32px; }
-      .panel{ padding: 14px; }
-      .actions{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-
-    @media (max-width: 390px){
-      .brand{ min-width: 132px; }
-      .brandSub{ display:none; }
-      .pill{ padding: 5px; }
-      .pillBtn{ padding: 7px 9px; font-size: 11px; letter-spacing: .8px; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="safe">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo">财</div>
-        <div class="brandText">
-          <div class="brandTitle">TON TEMPLE</div>
-          <div class="brandSub" id="brandSub">Fa Cai Supreme AI</div>
-        </div>
-      </div>
-
-      <div class="pillGroup">
-        <!-- MODE removed. Only RITUAL / PRO -->
-        <div class="pill" id="pillMode">
-          <button class="pillBtn active" id="tabRitual" data-tab="ritual">RITUAL</button>
-          <button class="pillBtn" id="tabPro" data-tab="pro">PRO</button>
-        </div>
-
-        <!-- Language always visible -->
-        <div class="pill" id="pillLang">
-          <button class="pillBtn active" id="langCN" data-lang="cn">中文</button>
-          <button class="pillBtn" id="langEN" data-lang="en">EN</button>
-        </div>
-      </div>
-
-      <div class="icons">
-        <button class="iconBtn" id="soundBtn" aria-label="Sound">🔊</button>
-        <button class="iconBtn" id="helpBtn" aria-label="Help">?</button>
-      </div>
-    </div>
-
-    <div class="wrap">
-      <div class="stage">
-        <div class="panel">
-          <div class="frame">
-            <div class="wheelPlaceholder" id="wheel">财</div>
-          </div>
-
-          <button class="cta" id="activate">ACTIVATE FLOW</button>
-
-          <div class="row2">
-            <button class="subBtn" id="oracleBtn">ORACLE</button>
-            <button class="subBtn" id="altarBtn">GOLDEN ALTAR</button>
-          </div>
-
-          <div class="card">
-            <div class="meta">
-              <div class="metaLeft" id="forecastLabel">FORECAST</div>
-              <div class="chips">
-                <div class="chip active" id="chipDay">DAY</div>
-                <div class="chip" id="chipTon">TON</div>
-                <div class="chip" id="chipLimit">LIMIT: 1/1</div>
-              </div>
-            </div>
-
-            <div class="guidanceTitle" id="guidanceTitle">TEMPLE GUIDANCE:</div>
-            <div class="guidanceText" id="guidanceText">
-              信号：不要分散注意力。一步 — 一个结果。
-            </div>
-
-            <div class="actions">
-              <button class="act" id="enterBtn">ENTER</button>
-              <button class="act" id="waitBtn">WAIT</button>
-              <button class="act" id="skipBtn">SKIP</button>
-            </div>
-          </div>
-
-          <div class="foot" id="foot">Ritualized interface. Not financial advice.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Telegram WebApp API -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    // Telegram bootstrap
-    const tg = window.Telegram?.WebApp;
-    if (tg) {
-      tg.ready();
-      tg.expand();
-      try { tg.setHeaderColor?.("#000000"); tg.setBackgroundColor?.("#000000"); } catch(e){}
-    }
-
-    // State
-    let state = {
-      tab: "ritual",
-      lang: "cn",     // DEFAULT CN
-      sound: true,
-    };
-
-    const i18n = {
-      cn: {
-        brandSub: "Fa Cai Supreme AI",
-        activate: "启动流",
-        oracle: "神谕",
-        altar: "金坛",
-        forecast: "预测",
-        day: "日",
-        ton: "TON",
-        limit: "限制: 1/1",
-        guidanceTitle: "神殿指引：",
-        guidanceText: "信号：不要分散注意力。一步 — 一个结果。",
-        enter: "进入",
-        wait: "等待",
-        skip: "跳过",
-        foot: "仪式化界面。非财务建议。",
-        help: "这里是第一屏（UI MASTER）。下一步：接入轮盘层 + 动画 + 逻辑。",
-        proToast: "PRO（占位）— позже подключим Premium-логику."
-      },
-      en: {
-        brandSub: "Fa Cai Supreme AI",
-        activate: "ACTIVATE FLOW",
-        oracle: "ORACLE",
-        altar: "GOLDEN ALTAR",
-        forecast: "FORECAST",
-        day: "DAY",
-        ton: "TON",
-        limit: "LIMIT: 1/1",
-        guidanceTitle: "TEMPLE GUIDANCE:",
-        guidanceText: "Signal: don’t scatter attention. One step — one result.",
-        enter: "ENTER",
-        wait: "WAIT",
-        skip: "SKIP",
-        foot: "Ritualized interface. Not financial advice.",
-        help: "This is the first screen (UI MASTER). Next: wheel layers + animation + logic.",
-        proToast: "PRO (placeholder) — we'll wire Premium logic later."
-      }
-    };
-
-    // DOM
-    const tabRitual = document.getElementById("tabRitual");
-    const tabPro = document.getElementById("tabPro");
-    const langCN = document.getElementById("langCN");
-    const langEN = document.getElementById("langEN");
-    const soundBtn = document.getElementById("soundBtn");
-    const helpBtn = document.getElementById("helpBtn");
-
-    const brandSub = document.getElementById("brandSub");
-    const activate = document.getElementById("activate");
-    const oracleBtn = document.getElementById("oracleBtn");
-    const altarBtn = document.getElementById("altarBtn");
-
-    const forecastLabel = document.getElementById("forecastLabel");
-    const chipDay = document.getElementById("chipDay");
-    const chipTon = document.getElementById("chipTon");
-    const chipLimit = document.getElementById("chipLimit");
-
-    const guidanceTitle = document.getElementById("guidanceTitle");
-    const guidanceText = document.getElementById("guidanceText");
-    const enterBtn = document.getElementById("enterBtn");
-    const waitBtn = document.getElementById("waitBtn");
-    const skipBtn = document.getElementById("skipBtn");
-    const foot = document.getElementById("foot");
-
-    function setActive(btnA, btnB, aOn){
-      btnA.classList.toggle("active", aOn);
-      btnB.classList.toggle("active", !aOn);
-    }
-
-    function applyLang(){
-      const t = i18n[state.lang];
-      brandSub.textContent = t.brandSub;
-      activate.textContent = t.activate;
-      oracleBtn.textContent = t.oracle;
-      altarBtn.textContent = t.altar;
-
-      forecastLabel.textContent = t.forecast;
-      chipDay.textContent = t.day;
-      chipTon.textContent = t.ton;
-      chipLimit.textContent = t.limit;
-
-      guidanceTitle.textContent = t.guidanceTitle;
-      guidanceText.textContent = t.guidanceText;
-
-      enterBtn.textContent = t.enter;
-      waitBtn.textContent = t.wait;
-      skipBtn.textContent = t.skip;
-
-      foot.textContent = t.foot;
-
-      // html lang
-      document.documentElement.lang = (state.lang === "cn" ? "zh" : "en");
-    }
-
-    function toast(msg){
-      if (tg?.showPopup) {
-        tg.showPopup({ title: "TON TEMPLE", message: msg, buttons:[{type:"ok"}] });
-      } else {
-        alert(msg);
-      }
-    }
-
-    // Tabs
-    tabRitual.addEventListener("click", () => {
-      state.tab = "ritual";
-      setActive(tabRitual, tabPro, true);
-    });
-
-    tabPro.addEventListener("click", () => {
-      state.tab = "pro";
-      setActive(tabRitual, tabPro, false);
-      toast(i18n[state.lang].proToast);
-    });
-
-    // Language
-    langCN.addEventListener("click", () => {
-      state.lang = "cn";
-      setActive(langCN, langEN, true);
-      applyLang();
-    });
-
-    langEN.addEventListener("click", () => {
-      state.lang = "en";
-      setActive(langCN, langEN, false);
-      applyLang();
-    });
-
-    // Sound
-    soundBtn.addEventListener("click", () => {
-      state.sound = !state.sound;
-      soundBtn.textContent = state.sound ? "🔊" : "🔇";
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-    });
-
-    // Help
-    helpBtn.addEventListener("click", () => {
-      toast(i18n[state.lang].help);
-    });
-
-    // CTA actions (placeholders)
-    document.getElementById("activate").addEventListener("click", () => {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
-      toast("OK. Next step: подключаем wheel layers + spin machine.");
-    });
-
-    oracleBtn.addEventListener("click", () => toast("ORACLE — placeholder"));
-    altarBtn.addEventListener("click", () => toast("GOLDEN ALTAR — placeholder"));
-    enterBtn.addEventListener("click", () => toast("ENTER — placeholder"));
-    waitBtn.addEventListener("click", () => toast("WAIT — placeholder"));
-    skipBtn.addEventListener("click", () => toast("SKIP — placeholder"));
-
-    // Init defaults
-    setActive(tabRitual, tabPro, true);
-    setActive(langCN, langEN, true);
-    applyLang();
   </script>
 </body>
 </html>

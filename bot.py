@@ -1,29 +1,30 @@
 import asyncio
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo, Message
 from aiogram.filters import Command
 
-TOKEN = "ВСТАВЬ_СЮДА_ТОКЕН_ОТ_BOTFATHER"
-WEBAPP_URL = "https://ton-temple.vercel.app/"
+TOKEN = "8429740565:AAGOfmcvzVxZHxWF7Ek3eyYyM9P_9YolC7I"
+WEBAPP_URL = "https://ton-temple.vercel.app"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 @dp.message(Command("start"))
-async def start_handler(message: types.Message):
-    kb = types.InlineKeyboardMarkup(
+async def start_handler(message: Message):
+    keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                types.InlineKeyboardButton(
-                    text="🏮 Открыть TON TEMPLE",
-                    web_app=types.WebAppInfo(url=WEBAPP_URL),
+                InlineKeyboardButton(
+                    text="🏮 ENTER TON TEMPLE",
+                    web_app=WebAppInfo(url=WEBAPP_URL)
                 )
             ]
         ]
     )
 
     await message.answer(
-        "TON TEMPLE готов.\nНажми кнопку ниже, чтобы открыть Mini App.",
-        reply_markup=kb
+        "TON TEMPLE ready.",
+        reply_markup=keyboard
     )
 
 async def main():
