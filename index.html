@@ -1,473 +1,594 @@
 <!doctype html>
-<html lang="ru">
+<html lang="zh">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>TON TEMPLE</title>
+
   <style>
     :root{
-      --bg:#070707;
+      --bg0:#040404;
+      --bg1:#0b0b0b;
       --gold:#d8b35a;
-      --gold2:#a57c2a;
+      --gold2:#9a7b2c;
+      --gold3:#5a4318;
       --text:#f2f2f2;
-      --glass: rgba(12,10,6,.52);
-      --line: rgba(216,179,90,.22);
-      --line2: rgba(216,179,90,.35);
-      --shadow: rgba(0,0,0,.62);
+      --muted:rgba(255,255,255,.68);
+      --glass:rgba(255,255,255,.04);
+      --stroke:rgba(216,179,90,.22);
+      --stroke2:rgba(216,179,90,.14);
+      --shadow:0 12px 40px rgba(0,0,0,.55);
+      --radius:22px;
+      --pillRadius:999px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%; margin:0}
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height:100%; margin:0; }
     body{
       background:
-        radial-gradient(1100px 900px at 50% 10%, rgba(216,179,90,.10), transparent 55%),
-        radial-gradient(900px 700px at 50% 45%, rgba(216,179,90,.07), transparent 60%),
-        radial-gradient(1200px 900px at 50% 105%, rgba(0,0,0,.85), rgba(0,0,0,.95)),
-        linear-gradient(180deg,#080707,#000);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      -webkit-user-select:none; user-select:none;
+        radial-gradient(1200px 800px at 50% 18%, rgba(216,179,90,.10) 0%, rgba(216,179,90,.04) 28%, rgba(0,0,0,0) 60%),
+        radial-gradient(1100px 700px at 65% 55%, rgba(216,179,90,.06) 0%, rgba(0,0,0,0) 58%),
+        linear-gradient(180deg, #050505 0%, #000 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      overflow-x:hidden;
+      user-select:none;
+      -webkit-user-select:none;
+    }
+
+    /* Safe area */
+    .safe{
+      padding-top: calc(env(safe-area-inset-top, 0px) + 10px);
+      padding-left: calc(env(safe-area-inset-left, 0px) + 14px);
+      padding-right: calc(env(safe-area-inset-right, 0px) + 14px);
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
+      min-height: 100%;
+    }
+
+    /* Header */
+    .topbar{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      width:100%;
+      max-width: 980px;
+      margin:0 auto;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 170px;
+      flex: 1 1 220px;
+    }
+
+    .logo{
+      width:34px; height:34px;
+      border-radius: 10px;
+      display:grid; place-items:center;
+      color: var(--gold);
+      border:1px solid var(--stroke);
+      background: radial-gradient(120% 120% at 30% 20%, rgba(216,179,90,.18) 0%, rgba(255,255,255,.02) 55%, rgba(0,0,0,.0) 100%);
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      font-weight: 800;
+      letter-spacing:.5px;
+    }
+
+    .brandText{ line-height:1.05; }
+    .brandTitle{
+      font-weight: 800;
+      letter-spacing: .9px;
+      font-size: 14px;
+    }
+    .brandSub{
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      margin-top: 3px;
+      letter-spacing:.2px;
+    }
+
+    .pillGroup{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex: 0 1 auto;
+      justify-content:center;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:6px;
+      border-radius: var(--pillRadius);
+      border:1px solid var(--stroke2);
+      background: linear-gradient(180deg, rgba(255,255,255,.05) 0%, rgba(0,0,0,.10) 100%);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+
+    .pillBtn{
+      border:0;
+      padding:8px 12px;
+      border-radius: var(--pillRadius);
+      background: transparent;
+      color: rgba(255,255,255,.72);
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .pillBtn.active{
+      color:#0b0b0b;
+      background: linear-gradient(180deg, rgba(216,179,90,.95) 0%, rgba(154,123,44,.92) 100%);
+      box-shadow: 0 10px 22px rgba(216,179,90,.12);
+    }
+
+    .icons{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      flex: 1 1 160px;
+      min-width: 110px;
+    }
+    .iconBtn{
+      width:34px; height:34px;
+      border-radius: 12px;
+      border:1px solid var(--stroke2);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.85);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    .iconBtn:active{ transform: translateY(1px); }
+
+    /* Main layout */
+    .wrap{
+      width:100%;
+      max-width: 980px;
+      margin: 16px auto 0 auto;
+    }
+
+    .stage{
+      width:100%;
+      display:flex;
+      justify-content:center;
+    }
+
+    .panel{
+      width:min(520px, 100%);
+      border-radius: var(--radius);
+      border:1px solid var(--stroke2);
+      background:
+        radial-gradient(120% 120% at 30% 20%, rgba(216,179,90,.10) 0%, rgba(255,255,255,.02) 55%, rgba(0,0,0,.0) 100%),
+        rgba(255,255,255,.02);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position:relative;
       overflow:hidden;
     }
 
-    /* SAFE AREA */
-    .app{
-      height:100%;
-      padding-top:env(safe-area-inset-top);
-      padding-bottom:env(safe-area-inset-bottom);
-      display:flex;
-      flex-direction:column;
+    .frame{
+      border-radius: 18px;
+      border:1px solid rgba(216,179,90,.18);
+      background: rgba(0,0,0,.20);
+      height: min(56vh, 420px);
+      min-height: 280px;
+      display:grid;
+      place-items:center;
+      position:relative;
     }
 
-    /* TOP BAR */
-    .topbar{
-      height:64px;
-      padding:12px 12px 10px;
+    .wheelPlaceholder{
+      width: min(320px, 74vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      border:1px solid rgba(216,179,90,.22);
+      display:grid;
+      place-items:center;
+      color: rgba(216,179,90,.85);
+      letter-spacing: 2px;
+      font-weight: 900;
+      font-size: 46px;
+      background:
+        radial-gradient(70% 70% at 30% 30%, rgba(216,179,90,.10) 0%, rgba(0,0,0,.0) 55%),
+        rgba(0,0,0,.18);
+    }
+
+    .cta{
+      width:100%;
+      margin-top: 14px;
+      padding: 16px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(216,179,90,.28);
+      background: linear-gradient(180deg, rgba(216,179,90,.20) 0%, rgba(0,0,0,.12) 100%);
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
+      letter-spacing: 2px;
+      cursor:pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,.45);
+    }
+    .cta:active{ transform: translateY(1px); }
+
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .subBtn{
+      padding: 14px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(216,179,90,.18);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.80);
+      font-weight: 800;
+      letter-spacing: 2px;
+      cursor:pointer;
+      box-shadow: 0 12px 22px rgba(0,0,0,.35);
+    }
+    .subBtn:active{ transform: translateY(1px); }
+
+    .card{
+      margin-top: 14px;
+      border-radius: 18px;
+      border:1px solid rgba(216,179,90,.16);
+      background: rgba(255,255,255,.02);
+      padding: 14px;
+    }
+
+    .meta{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px; min-width:160px;
-    }
-    .logo{
-      width:44px;height:44px;border-radius:50%;
-      border:1px solid var(--line2);
-      box-shadow:0 0 22px rgba(216,179,90,.16);
-      background:
-        radial-gradient(circle at 35% 30%, rgba(216,179,90,.20), transparent 55%),
-        rgba(0,0,0,.35);
-      display:grid; place-items:center;
-      color:var(--gold); font-weight:900; font-size:22px;
-    }
-    .brandText{line-height:1.05}
-    .brandText b{letter-spacing:.7px}
-    .brandText small{display:block; opacity:.65; font-size:11px; margin-top:2px}
 
-    .nav{
-      flex:1;
+    .metaLeft{
       display:flex;
-      justify-content:center;
       gap:10px;
       align-items:center;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,.82);
     }
-    .navpill{
-      height:40px;
-      padding:0 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(216,179,90,.08), rgba(0,0,0,.22));
-      display:flex; align-items:center; gap:14px;
-      box-shadow:0 10px 24px var(--shadow);
-    }
-    .navpill .item{
-      font-size:12px;
-      letter-spacing:1.2px;
-      text-transform:uppercase;
-      opacity:.85;
-      cursor:pointer;
-    }
-    .navpill .item.active{opacity:1; color:var(--gold)}
-    .right{
-      display:flex; align-items:center; gap:8px; min-width:160px; justify-content:flex-end;
+
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
     }
     .chip{
-      height:36px; padding:0 10px; border-radius:12px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.28);
-      display:flex; align-items:center; gap:8px;
-      font-size:12px; opacity:.9;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(216,179,90,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.74);
+      font-weight: 800;
+      letter-spacing: 1px;
+      font-size: 12px;
     }
-    .ico{
-      width:36px; height:36px; border-radius:12px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.28);
-      display:grid; place-items:center;
-      cursor:pointer;
-    }
-
-    /* SCENE (DRAGON + WHEEL PLACEHOLDER) */
-    .scene{
-      flex:1;
-      padding:8px 12px 0;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      gap:14px;
-      position:relative;
-    }
-    .frame{
-      width:min(520px, 100%);
-      aspect-ratio: 1 / 1.05;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:
-        radial-gradient(260px 220px at 50% 40%, rgba(216,179,90,.10), transparent 60%),
-        radial-gradient(800px 600px at 50% 55%, rgba(0,0,0,.40), rgba(0,0,0,.85)),
-        rgba(0,0,0,.35);
-      box-shadow:0 22px 80px rgba(0,0,0,.65);
-      overflow:hidden;
-      position:relative;
-    }
-    .frame:before{
-      content:"";
-      position:absolute; inset:-40%;
-      background:conic-gradient(from 0deg, transparent 0 35%, rgba(216,179,90,.12) 45%, transparent 60% 100%);
-      animation:spin 10s linear infinite;
-      filter:blur(1px);
-      opacity:.85;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* Placeholder circle where wheel will be */
-    .wheelHolder{
-      position:absolute;
-      left:50%; top:55%;
-      transform:translate(-50%,-50%);
-      width:78%;
-      aspect-ratio:1/1;
-      border-radius:50%;
-      border:1px solid rgba(216,179,90,.25);
-      box-shadow:0 0 40px rgba(216,179,90,.12);
-      background:
-        radial-gradient(circle at 35% 30%, rgba(216,179,90,.12), transparent 55%),
-        radial-gradient(circle at 50% 60%, rgba(0,0,0,.55), rgba(0,0,0,.85));
-      display:grid; place-items:center;
-      z-index:2;
-    }
-    .wheelHolder .mark{
-      font-size:56px; font-weight:900; color:var(--gold); opacity:.9;
+    .chip.active{
+      border-color: rgba(216,179,90,.35);
+      color: rgba(216,179,90,.95);
+      background: rgba(216,179,90,.08);
     }
 
-    /* ACTIVATE FLOW button */
-    .cta{
-      width:min(520px, 100%);
-      height:56px;
-      border-radius:18px;
-      border:1px solid rgba(216,179,90,.45);
-      background:linear-gradient(180deg, rgba(216,179,90,.18), rgba(165,124,42,.10));
-      box-shadow:0 14px 40px rgba(0,0,0,.7);
-      color:var(--text);
-      font-weight:800;
-      letter-spacing:1.2px;
-      text-transform:uppercase;
-      cursor:pointer;
+    .guidanceTitle{
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,.85);
+      margin: 6px 0 10px;
+    }
+    .guidanceText{
+      color: rgba(255,255,255,.74);
+      font-size: 15px;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      min-height: 44px;
     }
 
-    /* ORACLE / ALTAR tabs */
-    .subtabs{
-      width:min(520px, 100%);
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      margin-top:-2px;
-    }
-    .subtabs .tab{
-      flex:1;
-      height:42px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.25);
-      display:grid; place-items:center;
-      letter-spacing:1.1px;
-      font-size:12px;
-      text-transform:uppercase;
-      opacity:.9;
-      cursor:pointer;
-    }
-    .subtabs .tab.active{
-      border-color:rgba(216,179,90,.35);
-      background:linear-gradient(180deg, rgba(216,179,90,.10), rgba(0,0,0,.28));
-      color:var(--gold);
-    }
-
-    /* GUIDANCE PANEL */
-    .panel{
-      width:min(520px, 100%);
-      border-radius:20px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(12,10,6,.58), rgba(0,0,0,.40));
-      box-shadow:0 22px 70px rgba(0,0,0,.7);
-      padding:14px;
-      margin-top:6px;
-    }
-    .panelTop{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      margin-bottom:10px;
-      font-size:12px;
-      letter-spacing:1.1px;
-      text-transform:uppercase;
-      opacity:.85;
-    }
-    .seg{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-    }
-    .seg .pill{
-      height:30px; padding:0 10px; border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.22);
-      display:flex; align-items:center;
-      font-size:12px; letter-spacing:.8px;
-      opacity:.9;
-    }
-    .seg .pill.active{
-      border-color:rgba(216,179,90,.35);
-      color:var(--gold);
-    }
-    .body{
-      font-size:13px;
-      line-height:1.45;
-      opacity:.9;
-      margin-bottom:10px;
-    }
-    .metrics{
-      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;
-    }
-    .metrics .m{
-      height:30px; padding:0 10px; border-radius:999px;
-      border:1px solid rgba(216,179,90,.18);
-      background:rgba(0,0,0,.22);
-      display:flex; align-items:center;
-      font-size:12px; opacity:.85;
-    }
     .actions{
-      display:flex; gap:10px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
     }
-    .actions button{
-      flex:1;
-      height:46px;
-      border-radius:16px;
-      border:1px solid var(--line);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      font-weight:800;
-      letter-spacing:1px;
-      text-transform:uppercase;
+    .act{
+      padding: 12px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(216,179,90,.16);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.80);
+      font-weight: 900;
+      letter-spacing: 2px;
       cursor:pointer;
-      opacity:.95;
     }
-    .footnote{
-      margin-top:10px;
-      font-size:11px;
-      opacity:.6;
+    .act:active{ transform: translateY(1px); }
+
+    .foot{
+      margin-top: 14px;
       text-align:center;
+      color: rgba(255,255,255,.40);
+      font-size: 12px;
+      letter-spacing: .6px;
     }
 
-    /* BOTTOM NAV */
-    .bottom{
-      padding:10px 12px 14px;
-    }
-    .dock{
-      height:68px;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(12,10,6,.60), rgba(0,0,0,.45));
-      box-shadow:0 20px 70px rgba(0,0,0,.75);
-      display:flex;
-      align-items:center;
-      justify-content:space-around;
-      gap:8px;
-      padding:10px;
-    }
-    .dock .d{
-      flex:1;
-      height:48px;
-      border-radius:18px;
-      border:1px solid transparent;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:2px;
-      cursor:pointer;
-      opacity:.88;
-    }
-    .dock .d b{
-      font-size:11px;
-      letter-spacing:1.2px;
-      text-transform:uppercase;
-    }
-    .dock .d span{
-      font-size:11px;
-      opacity:.7;
-      letter-spacing:.6px;
-    }
-    .dock .d.active{
-      border-color:rgba(216,179,90,.30);
-      background:rgba(216,179,90,.06);
-      opacity:1;
-      color:var(--gold);
+    /* Mobile compression */
+    @media (max-width: 520px){
+      .brand{ min-width: 150px; }
+      .brandTitle{ font-size: 13px; }
+      .pillBtn{ padding: 8px 10px; font-size: 12px; }
+      .icons{ min-width: 86px; }
+      .iconBtn{ width: 32px; height: 32px; }
+      .panel{ padding: 14px; }
+      .actions{ grid-template-columns: 1fr 1fr 1fr; }
     }
 
-    /* small phones */
-    @media (max-width:420px){
-      .topbar{height:58px}
-      .navpill{gap:10px; padding:0 10px}
-      .navpill .item{font-size:11px}
-      .logo{width:40px;height:40px}
-      .frame{border-radius:20px}
+    @media (max-width: 390px){
+      .brand{ min-width: 132px; }
+      .brandSub{ display:none; }
+      .pill{ padding: 5px; }
+      .pillBtn{ padding: 7px 9px; font-size: 11px; letter-spacing: .8px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="app">
+  <div class="safe">
     <div class="topbar">
       <div class="brand">
-        <div class="logo">財</div>
+        <div class="logo">财</div>
         <div class="brandText">
-          <b>TON TEMPLE</b>
-          <small>Fa Cai Supreme AI</small>
+          <div class="brandTitle">TON TEMPLE</div>
+          <div class="brandSub" id="brandSub">Fa Cai Supreme AI</div>
         </div>
       </div>
 
-      <div class="nav">
-        <div class="navpill">
-          <div class="item">MODE</div>
-          <div class="item active">RITUAL</div>
-          <div class="item">PRO</div>
-          <div class="item">CN</div>
-          <div class="item">EN</div>
+      <div class="pillGroup">
+        <!-- MODE removed. Only RITUAL / PRO -->
+        <div class="pill" id="pillMode">
+          <button class="pillBtn active" id="tabRitual" data-tab="ritual">RITUAL</button>
+          <button class="pillBtn" id="tabPro" data-tab="pro">PRO</button>
+        </div>
+
+        <!-- Language always visible -->
+        <div class="pill" id="pillLang">
+          <button class="pillBtn active" id="langCN" data-lang="cn">中文</button>
+          <button class="pillBtn" id="langEN" data-lang="en">EN</button>
         </div>
       </div>
 
-      <div class="right">
-        <div class="ico" title="Sound">🔊</div>
-        <div class="ico" title="Help">?</div>
+      <div class="icons">
+        <button class="iconBtn" id="soundBtn" aria-label="Sound">🔊</button>
+        <button class="iconBtn" id="helpBtn" aria-label="Help">?</button>
       </div>
     </div>
 
-    <div class="scene">
-      <div class="frame" aria-label="Dragon + Wheel scene">
-        <div class="wheelHolder" id="wheel">
-          <div class="mark">財</div>
-        </div>
-      </div>
-
-      <button class="cta" id="activate">ACTIVATE FLOW</button>
-
-      <div class="subtabs">
-        <div class="tab active">ORACLE</div>
-        <div class="tab">GOLDEN ALTAR</div>
-      </div>
-
-      <div class="panel">
-        <div class="panelTop">
-          <div>FORECAST</div>
-          <div class="seg">
-            <div class="pill active">DAY</div>
-            <div class="pill">TON</div>
-            <div class="pill">LIMIT: <span id="limitTxt" style="margin-left:6px; opacity:.9">0/1</span></div>
+    <div class="wrap">
+      <div class="stage">
+        <div class="panel">
+          <div class="frame">
+            <div class="wheelPlaceholder" id="wheel">财</div>
           </div>
+
+          <button class="cta" id="activate">ACTIVATE FLOW</button>
+
+          <div class="row2">
+            <button class="subBtn" id="oracleBtn">ORACLE</button>
+            <button class="subBtn" id="altarBtn">GOLDEN ALTAR</button>
+          </div>
+
+          <div class="card">
+            <div class="meta">
+              <div class="metaLeft" id="forecastLabel">FORECAST</div>
+              <div class="chips">
+                <div class="chip active" id="chipDay">DAY</div>
+                <div class="chip" id="chipTon">TON</div>
+                <div class="chip" id="chipLimit">LIMIT: 1/1</div>
+              </div>
+            </div>
+
+            <div class="guidanceTitle" id="guidanceTitle">TEMPLE GUIDANCE:</div>
+            <div class="guidanceText" id="guidanceText">
+              信号：不要分散注意力。一步 — 一个结果。
+            </div>
+
+            <div class="actions">
+              <button class="act" id="enterBtn">ENTER</button>
+              <button class="act" id="waitBtn">WAIT</button>
+              <button class="act" id="skipBtn">SKIP</button>
+            </div>
+          </div>
+
+          <div class="foot" id="foot">Ritualized interface. Not financial advice.</div>
         </div>
-
-        <div class="body" id="guidanceText">
-          TEMPLE GUIDANCE:<br>
-          Tap ORACLE to receive guidance.<br>
-          Then choose: ENTER / WAIT / SKIP
-        </div>
-
-        <div class="metrics">
-          <div class="m">Market Weather: CALM</div>
-          <div class="m">RiskAura: LOW</div>
-          <div class="m">Flow Window: OPEN</div>
-        </div>
-
-        <div class="actions">
-          <button id="enterBtn">ENTER</button>
-          <button id="waitBtn">WAIT</button>
-          <button id="skipBtn">SKIP</button>
-        </div>
-
-        <div class="footnote">Ritualized interface. Not financial advice.</div>
-      </div>
-    </div>
-
-    <div class="bottom">
-      <div class="dock">
-        <div class="d active"><span>殿</span><b>RITUAL</b></div>
-        <div class="d"><span>轮</span><b>WHEEL</b></div>
-        <div class="d"><span>谕</span><b>ORACLE</b></div>
-        <div class="d"><span>坛</span><b>ALTAR</b></div>
       </div>
     </div>
   </div>
 
+  <!-- Telegram WebApp API -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
+    // Telegram bootstrap
     const tg = window.Telegram?.WebApp;
-    if (tg){ tg.ready(); tg.expand(); }
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      try { tg.setHeaderColor?.("#000000"); tg.setBackgroundColor?.("#000000"); } catch(e){}
+    }
 
-    // daily limit (same rule as before)
-    const limitTxt = document.getElementById("limitTxt");
-    const guidanceText = document.getElementById("guidanceText");
+    // State
+    let state = {
+      tab: "ritual",
+      lang: "cn",     // DEFAULT CN
+      sound: true,
+    };
+
+    const i18n = {
+      cn: {
+        brandSub: "Fa Cai Supreme AI",
+        activate: "启动流",
+        oracle: "神谕",
+        altar: "金坛",
+        forecast: "预测",
+        day: "日",
+        ton: "TON",
+        limit: "限制: 1/1",
+        guidanceTitle: "神殿指引：",
+        guidanceText: "信号：不要分散注意力。一步 — 一个结果。",
+        enter: "进入",
+        wait: "等待",
+        skip: "跳过",
+        foot: "仪式化界面。非财务建议。",
+        help: "这里是第一屏（UI MASTER）。下一步：接入轮盘层 + 动画 + 逻辑。",
+        proToast: "PRO（占位）— позже подключим Premium-логику."
+      },
+      en: {
+        brandSub: "Fa Cai Supreme AI",
+        activate: "ACTIVATE FLOW",
+        oracle: "ORACLE",
+        altar: "GOLDEN ALTAR",
+        forecast: "FORECAST",
+        day: "DAY",
+        ton: "TON",
+        limit: "LIMIT: 1/1",
+        guidanceTitle: "TEMPLE GUIDANCE:",
+        guidanceText: "Signal: don’t scatter attention. One step — one result.",
+        enter: "ENTER",
+        wait: "WAIT",
+        skip: "SKIP",
+        foot: "Ritualized interface. Not financial advice.",
+        help: "This is the first screen (UI MASTER). Next: wheel layers + animation + logic.",
+        proToast: "PRO (placeholder) — we'll wire Premium logic later."
+      }
+    };
+
+    // DOM
+    const tabRitual = document.getElementById("tabRitual");
+    const tabPro = document.getElementById("tabPro");
+    const langCN = document.getElementById("langCN");
+    const langEN = document.getElementById("langEN");
+    const soundBtn = document.getElementById("soundBtn");
+    const helpBtn = document.getElementById("helpBtn");
+
+    const brandSub = document.getElementById("brandSub");
     const activate = document.getElementById("activate");
+    const oracleBtn = document.getElementById("oracleBtn");
+    const altarBtn = document.getElementById("altarBtn");
 
-    const SIGNS = [
-      "Сигнал дня: держи темп. Сначала структура — потом давление.",
-      "Сигнал дня: не расплескай внимание. Один шаг — один результат.",
-      "Сигнал дня: удача любит точность. Сократи лишнее.",
-      "Сигнал дня: укрепляй позиции. Риск — только после ясности.",
-      "Сигнал дня: действуй, когда окно открыто. Не раньше."
-    ];
+    const forecastLabel = document.getElementById("forecastLabel");
+    const chipDay = document.getElementById("chipDay");
+    const chipTon = document.getElementById("chipTon");
+    const chipLimit = document.getElementById("chipLimit");
 
-    function todayKey(){
-      const d = new Date();
-      const y = d.getFullYear();
-      const m = String(d.getMonth()+1).padStart(2,'0');
-      const da = String(d.getDate()).padStart(2,'0');
-      return `${y}-${m}-${da}`;
+    const guidanceTitle = document.getElementById("guidanceTitle");
+    const guidanceText = document.getElementById("guidanceText");
+    const enterBtn = document.getElementById("enterBtn");
+    const waitBtn = document.getElementById("waitBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const foot = document.getElementById("foot");
+
+    function setActive(btnA, btnB, aOn){
+      btnA.classList.toggle("active", aOn);
+      btnB.classList.toggle("active", !aOn);
     }
-    function loadDaily(){
-      const key = "tt_daily_" + todayKey();
-      try { return JSON.parse(localStorage.getItem(key) || "null"); }
-      catch(e){ localStorage.removeItem(key); return null; }
+
+    function applyLang(){
+      const t = i18n[state.lang];
+      brandSub.textContent = t.brandSub;
+      activate.textContent = t.activate;
+      oracleBtn.textContent = t.oracle;
+      altarBtn.textContent = t.altar;
+
+      forecastLabel.textContent = t.forecast;
+      chipDay.textContent = t.day;
+      chipTon.textContent = t.ton;
+      chipLimit.textContent = t.limit;
+
+      guidanceTitle.textContent = t.guidanceTitle;
+      guidanceText.textContent = t.guidanceText;
+
+      enterBtn.textContent = t.enter;
+      waitBtn.textContent = t.wait;
+      skipBtn.textContent = t.skip;
+
+      foot.textContent = t.foot;
+
+      // html lang
+      document.documentElement.lang = (state.lang === "cn" ? "zh" : "en");
     }
-    function saveDaily(payload){
-      const key = "tt_daily_" + todayKey();
-      localStorage.setItem(key, JSON.stringify(payload));
-    }
-    function updateLimit(){
-      const saved = loadDaily();
-      if (saved?.text){
-        limitTxt.textContent = "1/1";
-        guidanceText.innerHTML = "TEMPLE GUIDANCE:<br><br>" + saved.text.replaceAll("\n","<br>");
+
+    function toast(msg){
+      if (tg?.showPopup) {
+        tg.showPopup({ title: "TON TEMPLE", message: msg, buttons:[{type:"ok"}] });
       } else {
-        limitTxt.textContent = "0/1";
+        alert(msg);
       }
     }
 
-    activate.addEventListener("click", ()=>{
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
-      const saved = loadDaily();
-      if (saved?.text) return;
-      const pick = SIGNS[Math.floor(Math.random()*SIGNS.length)];
-      saveDaily({text: pick, ts: Date.now()});
-      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred("success");
-      updateLimit();
+    // Tabs
+    tabRitual.addEventListener("click", () => {
+      state.tab = "ritual";
+      setActive(tabRitual, tabPro, true);
     });
 
-    updateLimit();
+    tabPro.addEventListener("click", () => {
+      state.tab = "pro";
+      setActive(tabRitual, tabPro, false);
+      toast(i18n[state.lang].proToast);
+    });
+
+    // Language
+    langCN.addEventListener("click", () => {
+      state.lang = "cn";
+      setActive(langCN, langEN, true);
+      applyLang();
+    });
+
+    langEN.addEventListener("click", () => {
+      state.lang = "en";
+      setActive(langCN, langEN, false);
+      applyLang();
+    });
+
+    // Sound
+    soundBtn.addEventListener("click", () => {
+      state.sound = !state.sound;
+      soundBtn.textContent = state.sound ? "🔊" : "🔇";
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
+    });
+
+    // Help
+    helpBtn.addEventListener("click", () => {
+      toast(i18n[state.lang].help);
+    });
+
+    // CTA actions (placeholders)
+    document.getElementById("activate").addEventListener("click", () => {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
+      toast("OK. Next step: подключаем wheel layers + spin machine.");
+    });
+
+    oracleBtn.addEventListener("click", () => toast("ORACLE — placeholder"));
+    altarBtn.addEventListener("click", () => toast("GOLDEN ALTAR — placeholder"));
+    enterBtn.addEventListener("click", () => toast("ENTER — placeholder"));
+    waitBtn.addEventListener("click", () => toast("WAIT — placeholder"));
+    skipBtn.addEventListener("click", () => toast("SKIP — placeholder"));
+
+    // Init defaults
+    setActive(tabRitual, tabPro, true);
+    setActive(langCN, langEN, true);
+    applyLang();
   </script>
 </body>
 </html>
