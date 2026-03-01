@@ -1,4 +1,3 @@
-cat > index.html <<'HTML'
 <!doctype html>
 <html lang="zh">
 <head>
@@ -8,27 +7,21 @@ cat > index.html <<'HTML'
 
   <style>
     :root{
-      --bg0:#050505;
-      --bg1:#090909;
       --gold:#d8b35a;
-      --gold2:#a98533;
       --text:#f2f2f2;
       --muted:rgba(242,242,242,.74);
       --line:rgba(216,179,90,.22);
       --line2:rgba(216,179,90,.14);
-      --shadow: 0 24px 70px rgba(0,0,0,.62);
+      --shadow:0 24px 70px rgba(0,0,0,.62);
 
       --safeT: env(safe-area-inset-top);
       --safeB: env(safe-area-inset-bottom);
       --safeL: env(safe-area-inset-left);
       --safeR: env(safe-area-inset-right);
-
-      --radius: 26px;
-      --radius2: 18px;
     }
 
     *{ box-sizing:border-box; }
-    html, body { height:100%; }
+    html,body{ height:100%; }
     body{
       margin:0;
       color:var(--text);
@@ -36,14 +29,14 @@ cat > index.html <<'HTML'
         radial-gradient(1200px 800px at 40% 18%, rgba(216,179,90,.13), rgba(0,0,0,0) 55%),
         radial-gradient(1000px 720px at 65% 55%, rgba(216,179,90,.08), rgba(0,0,0,0) 55%),
         linear-gradient(180deg, #000 0%, #070707 40%, #000 100%);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
       overflow-x:hidden;
       user-select:none;
       -webkit-user-select:none;
     }
 
-    /* page */
+    /* ====== LAYOUT ====== */
     .wrap{
       min-height:100%;
       padding:
@@ -57,25 +50,26 @@ cat > index.html <<'HTML'
       gap:14px;
     }
 
-    /* top header */
+    /* ====== HEADER ====== */
     .top{
       width:min(980px, 100%);
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap:10px;
-      padding:10px 10px 0 10px;
+      padding:6px 4px 0 4px;
     }
 
     .brand{
       display:flex;
       align-items:center;
       gap:10px;
-      min-width: 0;
+      min-width:0;
+      flex: 1 1 auto;
     }
 
     .seal{
-      width:30px; height:30px;
+      width:34px; height:34px;
       border-radius:50%;
       display:grid; place-items:center;
       color:var(--gold);
@@ -83,10 +77,9 @@ cat > index.html <<'HTML'
       background: radial-gradient(60% 60% at 40% 30%, rgba(216,179,90,.22), rgba(0,0,0,.65));
       box-shadow: 0 10px 26px rgba(0,0,0,.55);
       flex:0 0 auto;
-      font-weight:800;
-      letter-spacing:.02em;
+      font-weight:900;
     }
-    .seal span{ transform: translateY(-1px); font-size:16px; }
+    .seal span{ transform:translateY(-1px); font-size:18px; }
 
     .brandText{
       min-width:0;
@@ -95,29 +88,30 @@ cat > index.html <<'HTML'
       line-height:1.05;
     }
     .brandTitle{
-      font-weight:800;
-      letter-spacing:.18em;
-      font-size:16px;              /* bigger */
+      font-weight:900;
+      letter-spacing:.16em;
+      font-size:16px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
     .brandSub{
       margin-top:4px;
-      font-size:12px;              /* a bit bigger */
+      font-size:12px;
       color:var(--muted);
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
 
-    /* right controls: 2 columns, icons under their own column */
+    /* right: 2 rows, aligned, compact */
     .ctrl{
+      flex:0 0 auto;
       display:grid;
-      grid-template-columns: auto auto;
-      grid-auto-rows: auto;
+      grid-template-columns:auto auto;
+      grid-template-rows:auto auto;
       gap:8px 10px;
-      align-items:start;
+      align-items:center;
       justify-items:end;
       padding-top:2px;
     }
@@ -132,7 +126,6 @@ cat > index.html <<'HTML'
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-
     .seg button{
       appearance:none;
       border:0;
@@ -140,17 +133,17 @@ cat > index.html <<'HTML'
       color:rgba(242,242,242,.78);
       padding:8px 12px;
       border-radius:999px;
-      font-weight:800;
-      letter-spacing:.14em;
+      font-weight:900;
+      letter-spacing:.12em;
       font-size:12px;
       cursor:pointer;
       line-height:1;
+      white-space:nowrap;
     }
-
     .seg button.active{
       color:#151515;
       background:
-        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.22), rgba(0,0,0,0) 55%),
+        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.20), rgba(0,0,0,0) 55%),
         linear-gradient(180deg, #f0d27f 0%, var(--gold) 45%, #b98a2c 100%);
       box-shadow: 0 10px 30px rgba(216,179,90,.22);
     }
@@ -160,17 +153,35 @@ cat > index.html <<'HTML'
       border-radius:999px;
       border:1px solid var(--line);
       background: rgba(0,0,0,.32);
-      color:rgba(242,242,242,.85);
+      color:rgba(242,242,242,.88);
       display:grid; place-items:center;
       cursor:pointer;
       box-shadow: 0 12px 34px rgba(0,0,0,.55);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      font-weight:800;
+      font-weight:900;
+      padding:0;
     }
-    .iconBtn:active{ transform: translateY(1px); }
+    .iconBtn:active{ transform:translateY(1px); }
 
-    /* main frame */
+    /* Make sure header never overflows: shrink right side first */
+    @media (max-width: 430px){
+      .seal{ width:32px; height:32px; }
+      .seal span{ font-size:17px; }
+      .brandTitle{ font-size:15px; letter-spacing:.14em; }
+      .brandSub{ font-size:11px; }
+      .seg button{ padding:7px 10px; font-size:11px; letter-spacing:.10em; }
+      .iconBtn{ width:36px; height:36px; }
+      .ctrl{ gap:7px 8px; }
+    }
+
+    @media (max-width: 375px){
+      .brandTitle{ font-size:14px; }
+      .seg button{ padding:6px 9px; font-size:10.5px; }
+      .iconBtn{ width:34px; height:34px; }
+    }
+
+    /* ====== MAIN ====== */
     .stage{
       width:min(520px, 100%);
       margin-top:4px;
@@ -178,7 +189,7 @@ cat > index.html <<'HTML'
 
     .card{
       width:100%;
-      border-radius: var(--radius);
+      border-radius:26px;
       border:1px solid var(--line);
       background:
         radial-gradient(100% 140% at 30% 20%, rgba(216,179,90,.10), rgba(0,0,0,0) 60%),
@@ -189,43 +200,22 @@ cat > index.html <<'HTML'
       overflow:hidden;
     }
 
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius: var(--radius);
-      pointer-events:none;
-      background:
-        radial-gradient(800px 500px at 30% 20%, rgba(216,179,90,.18), rgba(0,0,0,0) 60%);
-      opacity:.65;
-    }
-
-    .sigilBox{
-      position:relative;
-      border-radius: 24px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.20);
-      padding:16px;
-    }
-
     .sigil{
       width:100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 24px;
+      aspect-ratio:1/1;
+      border-radius:24px;
       border:1px solid var(--line2);
       display:grid;
       place-items:center;
-      position:relative;
       background:
         radial-gradient(65% 65% at 38% 30%, rgba(216,179,90,.18), rgba(0,0,0,.66));
     }
 
-    .sigil .han{
+    .han{
       font-size:56px;
       font-weight:900;
       color:var(--gold);
       text-shadow: 0 16px 40px rgba(0,0,0,.65);
-      letter-spacing:.02em;
       transform: translateY(-2px);
     }
 
@@ -233,7 +223,7 @@ cat > index.html <<'HTML'
       width:100%;
       margin-top:14px;
       height:54px;
-      border-radius: 999px;
+      border-radius:999px;
       border:1px solid var(--line);
       background:
         radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.10), rgba(0,0,0,0) 55%),
@@ -244,335 +234,101 @@ cat > index.html <<'HTML'
       cursor:pointer;
       box-shadow: 0 18px 54px rgba(0,0,0,.55);
     }
-    .cta:active{ transform: translateY(1px); }
-
-    .two{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-
-    .btn{
-      height:46px;
-      border-radius: 999px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.22);
-      color: rgba(242,242,242,.86);
-      font-weight:900;
-      letter-spacing:.16em;
-      cursor:pointer;
-    }
-    .btn:active{ transform: translateY(1px); }
-
-    .panel{
-      margin-top:14px;
-      border-radius: 22px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.22);
-      padding:14px;
-    }
-
-    .row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.18);
-      color: rgba(242,242,242,.84);
-      font-weight:900;
-      letter-spacing:.12em;
-      font-size:12px;
-    }
-
-    .tag .on{
-      color:#141414;
-      background: linear-gradient(180deg, #f0d27f 0%, var(--gold) 50%, #b98a2c 100%);
-      border-radius:999px;
-      padding:6px 10px;
-      letter-spacing:.12em;
-      font-weight:900;
-    }
-
-    .h1{
-      margin:12px 0 6px 0;
-      font-size:12px;
-      letter-spacing:.22em;
-      color: rgba(242,242,242,.72);
-      font-weight:900;
-    }
-
-    .guidance{
-      margin:0;
-      font-size:16px;
-      line-height:1.5;
-      color: rgba(242,242,242,.92);
-      text-shadow: 0 10px 30px rgba(0,0,0,.55);
-    }
-
-    .choices{
-      display:flex;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .pill{
-      flex:1 1 0;
-      height:42px;
-      border-radius: 999px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.16);
-      color: rgba(242,242,242,.86);
-      font-weight:900;
-      letter-spacing:.18em;
-      cursor:pointer;
-    }
-
-    .foot{
-      margin-top:10px;
-      text-align:center;
-      font-size:12px;
-      color: rgba(242,242,242,.55);
-    }
-
-    /* MOBILE: compact everything, prevent overflow */
-    @media (max-width: 430px){
-      .wrap{ padding-left: calc(10px + var(--safeL)); padding-right: calc(10px + var(--safeR)); }
-      .top{ padding:8px 6px 0 6px; }
-      .brandTitle{ font-size:15px; letter-spacing:.16em; }
-      .brandSub{ font-size:11px; }
-      .seal{ width:28px; height:28px; }
-      .seg button{ padding:7px 10px; font-size:11px; letter-spacing:.12em; }
-      .iconBtn{ width:36px; height:36px; }
-      .card{ padding:16px; }
-      .sigil .han{ font-size:52px; }
-      .cta{ height:52px; }
-      .panel{ padding:12px; }
-      .guidance{ font-size:15px; }
-    }
-
-    /* prevent weird long presses / context menu */
-    body { -webkit-touch-callout: none; }
+    .cta:active{ transform:translateY(1px); }
   </style>
 </head>
 
 <body>
   <div class="wrap">
+    <!-- HEADER -->
     <div class="top">
       <div class="brand">
         <div class="seal" aria-hidden="true"><span>财</span></div>
         <div class="brandText">
-          <div class="brandTitle" id="brandTitle">TON TEMPLE</div>
+          <div class="brandTitle">TON TEMPLE</div>
           <div class="brandSub" id="brandSub">Fa Cai Supreme AI — 财富之门</div>
         </div>
       </div>
 
       <div class="ctrl" aria-label="Top controls">
-        <!-- row 1: RITUAL/PRO -->
         <div class="seg" role="tablist" aria-label="Mode">
           <button id="tabRitual" class="active" type="button">RITUAL</button>
           <button id="tabPro" type="button">PRO</button>
         </div>
 
-        <!-- row 1: CN/EN -->
         <div class="seg" role="tablist" aria-label="Language">
           <button id="langCN" class="active" type="button">中文</button>
           <button id="langEN" type="button">EN</button>
         </div>
 
-        <!-- row 2: ? under PRO -->
         <button class="iconBtn" id="helpBtn" type="button" aria-label="Help">?</button>
-
-        <!-- row 2: sound under EN -->
         <button class="iconBtn" id="soundBtn" type="button" aria-label="Sound"><span id="soundIcon">🔊</span></button>
       </div>
     </div>
 
+    <!-- MAIN -->
     <div class="stage">
       <div class="card">
-        <div class="sigilBox">
-          <div class="sigil">
-            <div class="han" id="sigilHan">财</div>
-          </div>
-
-          <button class="cta" id="activate" type="button">启动流</button>
-
-          <div class="two">
-            <button class="btn" id="oracleBtn" type="button">神谕</button>
-            <button class="btn" id="altarBtn" type="button">金坛</button>
-          </div>
-
-          <div class="panel">
-            <div class="row">
-              <div class="tag" id="forecastLabel">预测</div>
-              <div class="tag"><span class="on" id="scopeLabel">日</span><span id="scopeAlt">TON</span><span id="limitLabel">LIMIT: 1/1</span></div>
-            </div>
-
-            <div class="h1" id="guideTitle">TEMPLE GUIDANCE</div>
-            <p class="guidance" id="guidanceText">信号：不要分散注意力。一歩——一个结果。</p>
-
-            <div class="choices">
-              <button class="pill" id="enterBtn" type="button">进入</button>
-              <button class="pill" id="waitBtn" type="button">等待</button>
-              <button class="pill" id="skipBtn" type="button">跳过</button>
-            </div>
-
-            <div class="foot" id="disclaimer">Ritualized interface. Not financial advice.</div>
-          </div>
-        </div>
+        <div class="sigil"><div class="han">财</div></div>
+        <button class="cta" id="activate" type="button">启动流</button>
       </div>
     </div>
   </div>
 
-  <!-- Telegram WebApp -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // ===== Telegram init =====
     const tg = window.Telegram?.WebApp;
-    try {
-      if (tg) {
-        tg.ready();
-        tg.expand();
-        tg.setHeaderColor?.("#000000");
-        tg.setBackgroundColor?.("#000000");
-      }
-    } catch (e) {}
+    try { tg?.ready(); tg?.expand(); } catch(e){}
 
-    // ===== State =====
     const $ = (id) => document.getElementById(id);
-
-    const state = {
-      mode: "ritual",
-      lang: (localStorage.getItem("tt_lang") || "zh"),
-      sound: (localStorage.getItem("tt_sound") || "on"),
-    };
+    let soundOn = (localStorage.getItem("tt_sound") || "on") !== "off";
+    let lang = (localStorage.getItem("tt_lang") || "zh") === "en" ? "en" : "zh";
 
     const TEXT = {
       zh: {
         brandSub: "Fa Cai Supreme AI — 财富之门",
         activate: "启动流",
-        oracle: "神谕",
-        altar: "金坛",
-        forecast: "预测",
-        scopeOn: "日",
-        scopeAlt: "TON",
-        guideTitle: "TEMPLE GUIDANCE",
-        guidance: "信号：不要分散注意力。一歩——一个结果。",
-        enter: "进入",
-        wait: "等待",
-        skip: "跳过",
-        disclaimer: "Ritualized interface. Not financial advice.",
-        help: "规则：先看信号，再选 ENTER / WAIT / SKIP。",
+        help: "规则：先看信号，再选 ENTER / WAIT / SKIP。"
       },
       en: {
         brandSub: "Fa Cai Supreme AI — Gateway to Wealth",
         activate: "ACTIVATE FLOW",
-        oracle: "ORACLE",
-        altar: "GOLDEN ALTAR",
-        forecast: "FORECAST",
-        scopeOn: "DAY",
-        scopeAlt: "TON",
-        guideTitle: "TEMPLE GUIDANCE",
-        guidance: "Signal: don’t scatter attention. One step — one result.",
-        enter: "ENTER",
-        wait: "WAIT",
-        skip: "SKIP",
-        disclaimer: "Ritualized interface. Not financial advice.",
-        help: "Rule: read the signal, then choose ENTER / WAIT / SKIP.",
+        help: "Rule: read the signal, then choose ENTER / WAIT / SKIP."
       }
     };
 
-    function applyLang() {
-      const L = state.lang === "en" ? "en" : "zh";
-      state.lang = L;
-      localStorage.setItem("tt_lang", L);
-
-      const t = TEXT[L];
-
-      $("brandSub").textContent = t.brandSub;
-      $("activate").textContent = t.activate;
-      $("oracleBtn").textContent = t.oracle;
-      $("altarBtn").textContent = t.altar;
-      $("forecastLabel").textContent = t.forecast;
-      $("scopeLabel").textContent = t.scopeOn;
-      $("scopeAlt").textContent = t.scopeAlt;
-      $("guideTitle").textContent = t.guideTitle;
-      $("guidanceText").textContent = t.guidance;
-      $("enterBtn").textContent = t.enter;
-      $("waitBtn").textContent = t.wait;
-      $("skipBtn").textContent = t.skip;
-      $("disclaimer").textContent = t.disclaimer;
-
-      $("langCN").classList.toggle("active", L === "zh");
-      $("langEN").classList.toggle("active", L === "en");
-
-      // allow Telegram to show close/back area nicely
-      document.documentElement.lang = (L === "zh" ? "zh" : "en");
+    function setActive(a, b){ a.classList.add("active"); b.classList.remove("active"); }
+    function render(){
+      $("brandSub").textContent = TEXT[lang].brandSub;
+      $("activate").textContent = TEXT[lang].activate;
+      document.documentElement.lang = (lang === "zh" ? "zh" : "en");
+      $("soundIcon").textContent = soundOn ? "🔊" : "🔇";
+      localStorage.setItem("tt_lang", lang);
+      localStorage.setItem("tt_sound", soundOn ? "on" : "off");
     }
 
-    function applyMode() {
-      $("tabRitual").classList.toggle("active", state.mode === "ritual");
-      $("tabPro").classList.toggle("active", state.mode === "pro");
-      // (later: PRO can unlock / paywall etc)
-    }
+    $("tabRitual").addEventListener("click", ()=>{ setActive($("tabRitual"), $("tabPro")); tg?.HapticFeedback?.impactOccurred?.("light"); });
+    $("tabPro").addEventListener("click", ()=>{ setActive($("tabPro"), $("tabRitual")); tg?.HapticFeedback?.impactOccurred?.("light"); });
 
-    function applySound() {
-      const on = (state.sound !== "off");
-      $("soundIcon").textContent = on ? "🔊" : "🔇";
-      localStorage.setItem("tt_sound", on ? "on" : "off");
-    }
+    $("langCN").addEventListener("click", ()=>{ lang="zh"; setActive($("langCN"), $("langEN")); render(); tg?.HapticFeedback?.impactOccurred?.("light"); });
+    $("langEN").addEventListener("click", ()=>{ lang="en"; setActive($("langEN"), $("langCN")); render(); tg?.HapticFeedback?.impactOccurred?.("light"); });
 
-    // ===== Events =====
-    $("tabRitual").addEventListener("click", () => { state.mode = "ritual"; applyMode(); tg?.HapticFeedback?.impactOccurred?.("light"); });
-    $("tabPro").addEventListener("click", () => { state.mode = "pro"; applyMode(); tg?.HapticFeedback?.impactOccurred?.("light"); });
-
-    $("langCN").addEventListener("click", () => { state.lang = "zh"; applyLang(); tg?.HapticFeedback?.impactOccurred?.("light"); });
-    $("langEN").addEventListener("click", () => { state.lang = "en"; applyLang(); tg?.HapticFeedback?.impactOccurred?.("light"); });
-
-    $("helpBtn").addEventListener("click", () => {
-      const t = TEXT[state.lang];
-      tg?.showPopup?.({ title: "TON TEMPLE", message: t.help, buttons: [{type:"ok"}] });
-      if (!tg?.showPopup) alert(t.help);
+    $("helpBtn").addEventListener("click", ()=>{
+      const msg = TEXT[lang].help;
+      if (tg?.showPopup) tg.showPopup({ title:"TON TEMPLE", message: msg, buttons:[{type:"ok"}] });
+      else alert(msg);
     });
 
-    $("soundBtn").addEventListener("click", () => {
-      state.sound = (state.sound === "off") ? "on" : "off";
-      applySound();
+    $("soundBtn").addEventListener("click", ()=>{
+      soundOn = !soundOn;
+      render();
       tg?.HapticFeedback?.impactOccurred?.("light");
     });
 
-    $("activate").addEventListener("click", () => {
-      tg?.HapticFeedback?.notificationOccurred?.("success");
-      // placeholder: later we trigger ritual logic / wheel / oracle generation
-    });
+    $("activate").addEventListener("click", ()=> tg?.HapticFeedback?.notificationOccurred?.("success"));
 
-    $("oracleBtn").addEventListener("click", () => {
-      tg?.HapticFeedback?.impactOccurred?.("light");
-      // placeholder
-    });
-
-    $("altarBtn").addEventListener("click", () => {
-      tg?.HapticFeedback?.impactOccurred?.("light");
-      // placeholder
-    });
-
-    // no context menu on Android webview
-    window.addEventListener("contextmenu", (e) => e.preventDefault());
-
-    // init
-    applyMode();
-    applyLang();
-    applySound();
+    render();
+    window.addEventListener("contextmenu", e => e.preventDefault());
   </script>
 </body>
 </html>
