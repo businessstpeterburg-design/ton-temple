@@ -7,554 +7,704 @@
 
   <style>
     :root{
-      --bg0:#000;
+      --bg0:#050505;
       --gold:#d8b35a;
-      --gold2:#f0d27f;
-      --gold3:#b98a2c;
-
+      --gold2:#f3d889;
       --text:#f2f2f2;
-      --muted:rgba(242,242,242,.74);
-
+      --muted:rgba(242,242,242,.72);
       --line:rgba(216,179,90,.22);
-      --line2:rgba(216,179,90,.14);
-
-      --shadow:0 24px 70px rgba(0,0,0,.62);
+      --line2:rgba(216,179,90,.12);
+      --shadow: 0 24px 70px rgba(0,0,0,.6);
 
       --safeT: env(safe-area-inset-top);
       --safeB: env(safe-area-inset-bottom);
       --safeL: env(safe-area-inset-left);
       --safeR: env(safe-area-inset-right);
+
+      --radius: 26px;
+      --pill: 999px;
+      --maxW: 860px;
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    html,body{ height:100%; margin:0; }
     body{
-      margin:0;
       color:var(--text);
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
       background:
-        radial-gradient(1200px 800px at 40% 18%, rgba(216,179,90,.14), rgba(0,0,0,0) 58%),
-        radial-gradient(1000px 720px at 65% 55%, rgba(216,179,90,.09), rgba(0,0,0,0) 58%),
-        linear-gradient(180deg, #000 0%, #070707 40%, #000 100%);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      -webkit-font-smoothing:antialiased;
+        radial-gradient(1200px 900px at 50% 18%, rgba(216,179,90,.14), rgba(0,0,0,0) 62%),
+        radial-gradient(900px 700px at 20% 55%, rgba(216,179,90,.08), rgba(0,0,0,0) 58%),
+        radial-gradient(1100px 900px at 80% 65%, rgba(216,179,90,.06), rgba(0,0,0,0) 62%),
+        linear-gradient(180deg, #060606, #000);
       overflow-x:hidden;
-      user-select:none;
-      -webkit-user-select:none;
     }
 
+    /* Page container with safe-areas */
     .wrap{
       min-height:100%;
       padding:
-        calc(10px + var(--safeT))
-        calc(12px + var(--safeR))
-        calc(14px + var(--safeB))
-        calc(12px + var(--safeL));
+        calc(14px + var(--safeT))
+        calc(14px + var(--safeR))
+        calc(16px + var(--safeB))
+        calc(14px + var(--safeL));
       display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
+      justify-content:center;
     }
 
-    /* ================= HEADER ================= */
-    .top{
-      width:min(980px, 100%);
+    .stage{
+      width:min(var(--maxW), 100%);
+    }
+
+    /* Header */
+    .header{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:10px;
-      padding:6px 4px 0 4px;
+      gap:12px;
+      margin-bottom:14px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:10px;
-      min-width:0;
+      gap:12px;
+      min-width: 0;
       flex: 1 1 auto;
     }
 
-    /* premium seal */
     .seal{
-      width:38px; height:38px;
+      width:52px;
+      height:52px;
       border-radius:999px;
       position:relative;
       flex:0 0 auto;
+
       background:
-        radial-gradient(70% 70% at 30% 28%, rgba(255,255,255,.22), rgba(0,0,0,0) 55%),
-        radial-gradient(120% 120% at 50% 90%, rgba(216,179,90,.22), rgba(0,0,0,.70) 62%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.20));
-      box-shadow: 0 14px 34px rgba(0,0,0,.70);
-      border:1px solid rgba(216,179,90,.38);
-      overflow:hidden;
+        radial-gradient(60% 60% at 30% 25%, rgba(255,255,255,.24), rgba(0,0,0,0) 55%),
+        radial-gradient(130% 130% at 50% 92%, rgba(216,179,90,.36), rgba(0,0,0,.78) 62%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.28));
+
+      border:1px solid rgba(216,179,90,.50);
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.85),
+        inset 0 0 22px rgba(216,179,90,.18);
     }
     .seal:before{
       content:"";
-      position:absolute; inset:4px;
+      position:absolute;
+      inset:7px;
       border-radius:999px;
-      border:1px solid rgba(216,179,90,.26);
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.35);
-    }
-    .seal:after{
-      content:"";
-      position:absolute; inset:-40%;
-      background: linear-gradient(115deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.10) 50%, rgba(255,255,255,0) 60%);
-      transform: rotate(12deg);
-      opacity:.55;
-      pointer-events:none;
+      border:1px solid rgba(216,179,90,.28);
+      box-shadow: inset 0 0 18px rgba(216,179,90,.10);
     }
     .seal span{
-      position:absolute; inset:0;
-      display:grid; place-items:center;
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
       color:var(--gold2);
       font-weight:900;
-      font-size:18px;
-      text-shadow: 0 14px 34px rgba(0,0,0,.75);
-      transform: translateY(-1px);
-      letter-spacing:.02em;
+      font-size:24px;
+      letter-spacing:.04em;
+      text-shadow:
+        0 22px 48px rgba(0,0,0,.95),
+        0 0 22px rgba(216,179,90,.45);
+      transform: translateY(1px);
     }
 
     .brandText{
       min-width:0;
-      display:flex;
-      flex-direction:column;
       line-height:1.05;
     }
     .brandTitle{
       font-weight:900;
-      letter-spacing:.14em;
-      font-size:16px;
-      /* вместо обрезки — перенос */
-      white-space:normal;
-      overflow:visible;
+      letter-spacing:.20em;
+      font-size:19px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
     .brandSub{
-      margin-top:4px;
-      font-size:12px;
+      margin-top:6px;
+      font-size:13px;
       color:var(--muted);
-      white-space:normal;
-      overflow:visible;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
-    /* Right controls: 2 rows (RITUAL/PRO) then (? LANG 🔊) */
-    .ctrl{
-      flex:0 0 auto;
+    /* Right cluster */
+    .cluster{
+      flex: 0 0 auto;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-end;
+      gap:10px;
+    }
+
+    /* Two-row controls block */
+    .controls{
       display:flex;
       flex-direction:column;
-      align-items:flex-end;
       gap:8px;
-      padding-top:2px;
+      align-items:flex-end;
     }
 
-    .seg{
-      display:inline-flex;
-      padding:3px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.35);
-      box-shadow: 0 12px 36px rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .seg button{
-      appearance:none;
-      border:0;
-      background:transparent;
-      color:rgba(242,242,242,.78);
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:900;
-      letter-spacing:.12em;
-      font-size:12px;
-      cursor:pointer;
-      line-height:1;
-      white-space:nowrap;
-    }
-    .seg button.active{
-      color:#151515;
-      background:
-        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.18), rgba(0,0,0,0) 55%),
-        linear-gradient(180deg, var(--gold2) 0%, var(--gold) 45%, var(--gold3) 100%);
-      box-shadow: 0 10px 30px rgba(216,179,90,.22);
-    }
-
-    .row2{
+    .row{
       display:flex;
       align-items:center;
-      gap:8px;
+      gap:10px;
       justify-content:flex-end;
     }
 
-    .iconBtn{
-      width:38px; height:38px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.32);
-      color:rgba(242,242,242,.88);
-      display:grid; place-items:center;
+    /* merged pills */
+    .seg{
+      display:inline-flex;
+      border:1px solid rgba(216,179,90,.22);
+      background: rgba(10,10,10,.40);
+      border-radius: var(--pill);
+      padding:3px;
+      box-shadow: inset 0 0 16px rgba(216,179,90,.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .seg button{
+      border:0;
+      background:transparent;
+      color:rgba(242,242,242,.82);
+      padding:8px 12px;
+      border-radius: var(--pill);
+      font-weight:800;
+      letter-spacing:.16em;
+      font-size:12px;
       cursor:pointer;
-      box-shadow: 0 12px 34px rgba(0,0,0,.55);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      font-weight:900;
-      padding:0;
-      flex:0 0 auto;
-    }
-    .iconBtn:active{ transform:translateY(1px); }
-
-    /* Header mobile tuning */
-    @media (max-width: 430px){
-      .seal{ width:36px; height:36px; }
-      .seal span{ font-size:17px; }
-      .brandTitle{ font-size:15px; letter-spacing:.12em; }
-      .brandSub{ font-size:11px; }
-      .seg button{ padding:7px 10px; font-size:11px; letter-spacing:.10em; }
-      .iconBtn{ width:36px; height:36px; }
-      .row2{ gap:7px; }
-    }
-    @media (max-width: 380px){
-      .brandTitle{ font-size:14px; letter-spacing:.10em; }
-      .seg button{ padding:6px 9px; font-size:10.5px; }
-      .iconBtn{ width:34px; height:34px; }
+      min-width: 72px;
+      white-space:nowrap;
     }
 
-    /* ================= MAIN ================= */
-    .stage{
-      width:min(520px, 100%);
-      margin-top:4px;
-    }
-
-    .card{
-      width:100%;
-      border-radius:26px;
-      border:1px solid var(--line);
+    .seg button.active{
       background:
-        radial-gradient(100% 140% at 30% 20%, rgba(216,179,90,.10), rgba(0,0,0,0) 60%),
-        rgba(0,0,0,.34);
+        radial-gradient(120% 120% at 35% 25%, rgba(255,255,255,.12), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(216,179,90,.30), rgba(0,0,0,.18));
+      color:#111;
+      box-shadow:
+        0 14px 34px rgba(0,0,0,.55),
+        inset 0 0 18px rgba(255,255,255,.10);
+      border:1px solid rgba(216,179,90,.35);
+    }
+
+    .seg.segLang button{ min-width: 64px; letter-spacing:.10em; }
+    .seg.segLang button.active{ color:#111; }
+
+    .iconBtn{
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      border:1px solid rgba(216,179,90,.18);
+      background: rgba(12,12,12,.45);
+      color: rgba(242,242,242,.88);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      box-shadow: inset 0 0 16px rgba(216,179,90,.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .iconBtn:active{ transform: translateY(1px); }
+    .iconBtn span{ font-weight:900; }
+
+    /* Main card */
+    .card{
+      margin-top: 8px;
+      border-radius: var(--radius);
+      border:1px solid rgba(216,179,90,.18);
+      background:
+        radial-gradient(1200px 600px at 50% 0%, rgba(216,179,90,.10), rgba(0,0,0,0) 55%),
+        rgba(0,0,0,.38);
       box-shadow: var(--shadow);
-      padding:18px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(700px 420px at 35% 25%, rgba(216,179,90,.10), rgba(0,0,0,0) 60%),
+        radial-gradient(700px 420px at 75% 55%, rgba(216,179,90,.08), rgba(0,0,0,0) 60%);
+      pointer-events:none;
+    }
+
+    .inner{
+      padding: 18px;
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .sigilBox{
+      border-radius: 22px;
+      border:1px solid rgba(216,179,90,.18);
+      background: rgba(0,0,0,.30);
+      box-shadow: inset 0 0 24px rgba(216,179,90,.06);
+      height: min(52vh, 520px);
+      min-height: 340px;
+      display:grid;
+      place-items:center;
       position:relative;
       overflow:hidden;
     }
 
-    .sigil{
-      width:100%;
-      aspect-ratio:1/1;
-      border-radius:24px;
-      border:1px solid var(--line2);
+    .sigilBox:before{
+      content:"";
+      position:absolute;
+      inset:14px;
+      border-radius: 18px;
+      border:1px solid rgba(216,179,90,.12);
+      pointer-events:none;
+    }
+
+    .sigilCircle{
+      width:min(64%, 300px);
+      aspect-ratio: 1 / 1;
+      border-radius:999px;
+      border:1px solid rgba(216,179,90,.18);
       display:grid;
       place-items:center;
+      box-shadow: inset 0 0 40px rgba(216,179,90,.06);
       background:
-        radial-gradient(65% 65% at 38% 30%, rgba(216,179,90,.18), rgba(0,0,0,.66));
+        radial-gradient(60% 60% at 40% 30%, rgba(216,179,90,.10), rgba(0,0,0,0) 62%),
+        rgba(0,0,0,.18);
     }
 
-    .han{
-      font-size:56px;
-      font-weight:900;
-      color:var(--gold);
-      text-shadow: 0 16px 40px rgba(0,0,0,.65);
-      transform: translateY(-2px);
+    .sigilChar{
+      font-size: clamp(58px, 6.6vw, 86px);
+      font-weight: 900;
+      color: var(--gold2);
+      text-shadow:
+        0 24px 70px rgba(0,0,0,.95),
+        0 0 20px rgba(216,179,90,.35);
+      transform: translateY(2px);
     }
 
-    .cta{
-      width:100%;
-      margin-top:14px;
-      height:54px;
-      border-radius:999px;
-      border:1px solid var(--line);
+    /* Buttons */
+    .btn{
+      border-radius: 18px;
+      border:1px solid rgba(216,179,90,.22);
       background:
-        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.10), rgba(0,0,0,0) 55%),
-        linear-gradient(180deg, rgba(216,179,90,.18), rgba(0,0,0,.20));
-      color: rgba(242,242,242,.92);
+        radial-gradient(120% 120% at 35% 25%, rgba(255,255,255,.10), rgba(0,0,0,0) 60%),
+        rgba(0,0,0,.25);
+      color: rgba(242,242,242,.90);
+      padding: 14px 16px;
       font-weight:900;
-      letter-spacing:.18em;
+      letter-spacing:.20em;
       cursor:pointer;
-      box-shadow: 0 18px 54px rgba(0,0,0,.55);
+      text-align:center;
+      box-shadow:
+        0 18px 50px rgba(0,0,0,.65),
+        inset 0 0 18px rgba(216,179,90,.08);
+      user-select:none;
     }
-    .cta:active{ transform:translateY(1px); }
+    .btn:active{ transform: translateY(1px); }
 
-    .rowBtns{
+    .btnPrimary{
+      background:
+        radial-gradient(120% 120% at 35% 25%, rgba(255,255,255,.14), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(216,179,90,.28), rgba(0,0,0,.20));
+      border:1px solid rgba(216,179,90,.32);
+      color:#121212;
+    }
+
+    .grid2{
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:12px;
-    }
-    .pill{
-      height:46px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.26);
-      color: rgba(242,242,242,.9);
-      font-weight:900;
-      letter-spacing:.14em;
-      cursor:pointer;
-      box-shadow: 0 14px 44px rgba(0,0,0,.55);
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
     }
 
+    /* Forecast panel */
     .panel{
-      margin-top:14px;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.22);
-      padding:14px;
+      border-radius: 22px;
+      border:1px solid rgba(216,179,90,.18);
+      background: rgba(0,0,0,.28);
+      box-shadow: inset 0 0 20px rgba(216,179,90,.06);
+      padding: 14px;
     }
+
+    .panelTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
     .panelTitle{
       font-weight:900;
       letter-spacing:.18em;
-      font-size:13px;
-      opacity:.9;
-      margin-bottom:10px;
+      font-size: 13px;
+      color: rgba(242,242,242,.92);
     }
 
     .chips{
       display:flex;
       gap:8px;
+      align-items:center;
       flex-wrap:wrap;
-      margin-bottom:10px;
+      justify-content:flex-end;
     }
+
     .chip{
-      padding:7px 12px;
+      padding:8px 12px;
       border-radius:999px;
-      border:1px solid var(--line2);
+      border:1px solid rgba(216,179,90,.18);
       background: rgba(0,0,0,.22);
-      font-weight:900;
+      font-weight:800;
       letter-spacing:.14em;
-      font-size:11px;
-      color: rgba(242,242,242,.88);
+      font-size: 11px;
+      color: rgba(242,242,242,.80);
+      white-space:nowrap;
     }
     .chip.active{
-      color:#151515;
       background:
-        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.18), rgba(0,0,0,0) 55%),
-        linear-gradient(180deg, var(--gold2) 0%, var(--gold) 45%, var(--gold3) 100%);
-      border-color: rgba(216,179,90,.30);
+        radial-gradient(120% 120% at 35% 25%, rgba(255,255,255,.12), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(216,179,90,.26), rgba(0,0,0,.18));
+      color:#111;
+      border:1px solid rgba(216,179,90,.28);
     }
 
-    .guideLabel{
-      font-weight:900;
-      letter-spacing:.14em;
-      font-size:12px;
-      opacity:.88;
-      margin:10px 0 6px;
-    }
-    .guideText{
-      margin:0;
-      color: rgba(242,242,242,.86);
-      line-height:1.45;
-      font-size:14px;
+    .label{
+      margin-top:6px;
+      color: rgba(242,242,242,.72);
+      font-size: 12px;
+      line-height:1.5;
     }
 
-    .actions{
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:10px;
+    .actions3{
       margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:10px;
     }
-    .act{
-      height:44px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.20);
-      color: rgba(242,242,242,.88);
+    .btnSmall{
+      padding:12px 10px;
+      border-radius: 16px;
+      font-size: 12px;
+      letter-spacing:.18em;
       font-weight:900;
-      letter-spacing:.16em;
-      cursor:pointer;
     }
 
-    .note{
+    .foot{
       margin-top:10px;
       text-align:center;
-      font-size:12px;
-      color: rgba(242,242,242,.55);
-      letter-spacing:.06em;
+      color: rgba(242,242,242,.52);
+      font-size: 12px;
     }
 
-    /* bottom nav (optional) */
-    .bottomNav{
+    /* Modal */
+    .modalBack{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index:9999;
+    }
+    .modal{
       width:min(520px, 100%);
-      margin-top:12px;
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      opacity:.92;
-    }
-    .navItem{
-      height:44px;
-      border-radius:999px;
-      border:1px solid var(--line2);
-      background: rgba(0,0,0,.18);
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      letter-spacing:.14em;
-      font-size:11px;
-      color: rgba(242,242,242,.78);
-    }
-    .navItem.active{
-      color:#151515;
+      border-radius: 22px;
+      border:1px solid rgba(216,179,90,.22);
       background:
-        radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.18), rgba(0,0,0,0) 55%),
-        linear-gradient(180deg, var(--gold2) 0%, var(--gold) 45%, var(--gold3) 100%);
-      border-color: rgba(216,179,90,.32);
+        radial-gradient(700px 360px at 35% 15%, rgba(216,179,90,.12), rgba(0,0,0,0) 62%),
+        rgba(0,0,0,.62);
+      box-shadow: 0 28px 90px rgba(0,0,0,.85);
+      padding:16px;
+    }
+    .modal h3{
+      margin:0 0 8px 0;
+      font-size: 14px;
+      letter-spacing:.16em;
+    }
+    .modal p{
+      margin:0;
+      color: rgba(242,242,242,.78);
+      font-size: 13px;
+      line-height:1.5;
+    }
+    .modal .closeRow{
+      margin-top:14px;
+      display:flex;
+      justify-content:flex-end;
+    }
+
+    /* Mobile tightening */
+    @media (max-width: 420px){
+      .seal{ width:48px; height:48px; }
+      .seal span{ font-size:22px; }
+      .brandTitle{ font-size:17px; letter-spacing:.18em; }
+      .brandSub{ font-size:12px; }
+      .seg button{ padding:7px 10px; min-width: 66px; font-size:11px; }
+      .seg.segLang button{ min-width: 58px; }
+      .iconBtn{ width:38px; height:38px; }
+      .inner{ padding: 16px; }
+      .sigilBox{ min-height: 320px; }
+    }
+
+    /* Prevent selection / context menu (Telegram Android) */
+    body{
+      -webkit-user-select:none;
+      user-select:none;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <!-- HEADER -->
-    <div class="top">
-      <div class="brand">
-        <div class="seal" aria-hidden="true"><span>财</span></div>
-        <div class="brandText">
-          <div class="brandTitle" id="brandTitle">TON TEMPLE</div>
-          <div class="brandSub" id="brandSub">Fa Cai Supreme AI — 财富之门</div>
-        </div>
-      </div>
-
-      <div class="ctrl" aria-label="Top controls">
-        <div class="seg" role="tablist" aria-label="Mode">
-          <button id="tabRitual" class="active" type="button">RITUAL</button>
-          <button id="tabPro" type="button">PRO</button>
-        </div>
-
-        <div class="row2" aria-label="Language and icons">
-          <button class="iconBtn" id="helpBtn" type="button" aria-label="Help">?</button>
-
-          <div class="seg" role="tablist" aria-label="Language">
-            <button id="langCN" class="active" type="button">中文</button>
-            <button id="langEN" type="button">EN</button>
-          </div>
-
-          <button class="iconBtn" id="soundBtn" type="button" aria-label="Sound"><span id="soundIcon">🔊</span></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- MAIN -->
     <div class="stage">
-      <div class="card">
-        <div class="sigil"><div class="han">财</div></div>
 
-        <button class="cta" id="activate" type="button">启动流</button>
-
-        <div class="rowBtns">
-          <button class="pill" id="oracleBtn" type="button">ORACLE</button>
-          <button class="pill" id="altarBtn" type="button">GOLDEN ALTAR</button>
+      <div class="header">
+        <!-- BRAND LEFT -->
+        <div class="brand">
+          <div class="seal" aria-hidden="true"><span>财</span></div>
+          <div class="brandText">
+            <div class="brandTitle" id="brandTitle">TON TEMPLE</div>
+            <div class="brandSub" id="brandSub">Fa Cai Supreme AI</div>
+          </div>
         </div>
 
-        <div class="panel">
-          <div class="panelTitle" id="forecastTitle">FORECAST</div>
+        <!-- CONTROLS RIGHT -->
+        <div class="cluster">
+          <div class="controls">
+            <!-- Row 1: Ritual/Pro + (?) (must be right of PRO) -->
+            <div class="row">
+              <div class="seg" role="tablist" aria-label="Mode">
+                <button id="tabRitual" class="active" type="button" data-i18n="ui.ritual">RITUAL</button>
+                <button id="tabPro" type="button" data-i18n="ui.pro">PRO</button>
+              </div>
+              <button class="iconBtn" id="helpBtn" type="button" aria-label="Help" title="Help">
+                <span>?</span>
+              </button>
+            </div>
 
-          <div class="chips" aria-label="Forecast chips">
-            <div class="chip active" id="chipDay">DAY</div>
-            <div class="chip" id="chipTon">TON</div>
-            <div class="chip" id="chipLimit">LIMIT: 1/1</div>
+            <!-- Row 2: CN/EN + sound (sound must be under ?) -->
+            <div class="row">
+              <div class="seg segLang" role="tablist" aria-label="Language">
+                <button id="langZH" class="active" type="button">中文</button>
+                <button id="langEN" type="button">EN</button>
+              </div>
+              <button class="iconBtn" id="soundBtn" type="button" aria-label="Sound" title="Sound">
+                <span id="soundIcon">🔊</span>
+              </button>
+            </div>
           </div>
-
-          <div class="guideLabel" id="guideLabel">TEMPLE GUIDANCE:</div>
-          <p class="guideText" id="guideText">信号：不要分散注意力。一步——一个结果。</p>
-
-          <div class="actions">
-            <button class="act" id="enterBtn" type="button">ENTER</button>
-            <button class="act" id="waitBtn" type="button">WAIT</button>
-            <button class="act" id="skipBtn" type="button">SKIP</button>
-          </div>
-
-          <div class="note" id="noteText">Ritualized interface. Not financial advice.</div>
         </div>
       </div>
 
-      <div class="bottomNav" aria-label="Bottom navigation">
-        <div class="navItem active" id="navRitual">RITUAL</div>
-        <div class="navItem" id="navWheel">WHEEL</div>
-        <div class="navItem" id="navOracle">ORACLE</div>
-        <div class="navItem" id="navAltar">ALTAR</div>
+      <div class="card">
+        <div class="inner">
+          <div class="sigilBox">
+            <div class="sigilCircle" aria-hidden="true">
+              <div class="sigilChar">财</div>
+            </div>
+          </div>
+
+          <button class="btn btnPrimary" id="activate" type="button" data-i18n="ui.activate">
+            ACTIVATE FLOW
+          </button>
+
+          <div class="grid2">
+            <button class="btn" id="oracle" type="button" data-i18n="ui.oracle">ORACLE</button>
+            <button class="btn" id="altar" type="button" data-i18n="ui.altar">GOLDEN ALTAR</button>
+          </div>
+
+          <div class="panel">
+            <div class="panelTop">
+              <div class="panelTitle" data-i18n="ui.forecast">FORECAST</div>
+              <div class="chips">
+                <div class="chip active" id="chipDay" data-i18n="ui.day">DAY</div>
+                <div class="chip" id="chipTon" data-i18n="ui.ton">TON</div>
+                <div class="chip" id="chipLimit"><span data-i18n="ui.limit">LIMIT</span>: <span id="limitVal">1/1</span></div>
+              </div>
+            </div>
+
+            <div class="panelTitle" style="margin-top:2px;" data-i18n="ui.guidanceTitle">
+              TEMPLE GUIDANCE:
+            </div>
+
+            <div class="label" id="guidanceText" data-i18n="ui.guidanceText">
+              Signal: don’t scatter attention. One step — one result.
+            </div>
+
+            <div class="actions3">
+              <button class="btn btnSmall" id="enterBtn" type="button" data-i18n="ui.enter">ENTER</button>
+              <button class="btn btnSmall" id="waitBtn" type="button" data-i18n="ui.wait">WAIT</button>
+              <button class="btn btnSmall" id="skipBtn" type="button" data-i18n="ui.skip">SKIP</button>
+            </div>
+
+            <div class="foot" data-i18n="ui.disclaimer">
+              Ritualized interface. Not financial advice.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HELP MODAL -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="modal">
+      <h3 id="helpTitle" data-i18n="help.title">TEMPLE HELP</h3>
+      <p id="helpBody" data-i18n="help.body">
+        This is a ritual UI layer. Use Oracle for guidance, then choose Enter / Wait / Skip.
+      </p>
+      <div class="closeRow">
+        <button class="btn btnSmall" id="closeHelp" type="button" data-i18n="help.close">CLOSE</button>
       </div>
     </div>
   </div>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
+    // Telegram lifecycle
     const tg = window.Telegram?.WebApp;
-    try { tg?.ready(); tg?.expand(); } catch(e){}
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
 
-    const $ = (id) => document.getElementById(id);
+    // Prevent context menu (Telegram Android)
+    window.addEventListener("contextmenu", e => e.preventDefault());
 
-    let soundOn = (localStorage.getItem("tt_sound") || "on") !== "off";
-    let lang = (localStorage.getItem("tt_lang") || "zh") === "en" ? "en" : "zh";
+    // State
+    let currentLang = "zh";
+    let soundOn = true;
 
-    const TEXT = {
+    // Full translations (EVERY UI string)
+    const I18N = {
       zh: {
-        brandTitle: "TON TEMPLE",
-        brandSub: "Fa Cai Supreme AI — 财富之门",
-        activate: "启动流",
-        forecast: "FORECAST",
-        guidanceLabel: "TEMPLE GUIDANCE:",
-        guidance: "信号：不要分散注意力。一步——一个结果。",
-        note: "仪式化界面。非投资建议。",
-        helpTitle: "TON TEMPLE",
-        help: "规则：先看信号，再选 ENTER / WAIT / SKIP。"
+        "ui.ritual": "仪式",
+        "ui.pro": "PRO",
+        "ui.activate": "启动流",
+        "ui.oracle": "神谕",
+        "ui.altar": "金坛",
+        "ui.forecast": "预测",
+        "ui.day": "日",
+        "ui.ton": "TON",
+        "ui.limit": "额度",
+        "ui.guidanceTitle": "庙堂指引：",
+        "ui.guidanceText": "信号：不要分散注意力。一一步——一个结果。",
+        "ui.enter": "进入",
+        "ui.wait": "等待",
+        "ui.skip": "跳过",
+        "ui.disclaimer": "仪式化界面。非投资建议。",
+        "help.title": "庙堂帮助",
+        "help.body": "这是仪式化界面层。点击「神谕」获取指引，然后选择：进入 / 等待 / 跳过。",
+        "help.close": "关闭"
       },
       en: {
-        brandTitle: "TON TEMPLE",
-        brandSub: "Fa Cai Supreme AI — Gateway to Wealth",
-        activate: "ACTIVATE FLOW",
-        forecast: "FORECAST",
-        guidanceLabel: "TEMPLE GUIDANCE:",
-        guidance: "Signal: don’t scatter attention. One step — one result.",
-        note: "Ritualized interface. Not financial advice.",
-        helpTitle: "TON TEMPLE",
-        help: "Rule: read the signal, then choose ENTER / WAIT / SKIP."
+        "ui.ritual": "RITUAL",
+        "ui.pro": "PRO",
+        "ui.activate": "ACTIVATE FLOW",
+        "ui.oracle": "ORACLE",
+        "ui.altar": "GOLDEN ALTAR",
+        "ui.forecast": "FORECAST",
+        "ui.day": "DAY",
+        "ui.ton": "TON",
+        "ui.limit": "LIMIT",
+        "ui.guidanceTitle": "TEMPLE GUIDANCE:",
+        "ui.guidanceText": "Signal: don’t scatter attention. One step — one result.",
+        "ui.enter": "ENTER",
+        "ui.wait": "WAIT",
+        "ui.skip": "SKIP",
+        "ui.disclaimer": "Ritualized interface. Not financial advice.",
+        "help.title": "TEMPLE HELP",
+        "help.body": "This is a ritual UI layer. Tap ORACLE for guidance, then choose: Enter / Wait / Skip.",
+        "help.close": "CLOSE"
       }
     };
 
-    function setActive(a, b){ a.classList.add("active"); b.classList.remove("active"); }
+    function applyI18n(lang){
+      currentLang = lang;
+      document.documentElement.lang = (lang === "zh") ? "zh" : "en";
 
-    function render(){
-      $("brandTitle").textContent = TEXT[lang].brandTitle;
-      $("brandSub").textContent   = TEXT[lang].brandSub;
-      $("activate").textContent   = TEXT[lang].activate;
-      $("forecastTitle").textContent = TEXT[lang].forecast;
-      $("guideLabel").textContent = TEXT[lang].guidanceLabel;
-      $("guideText").textContent  = TEXT[lang].guidance;
-      $("noteText").textContent   = TEXT[lang].note;
+      // buttons active state
+      document.getElementById("langZH").classList.toggle("active", lang === "zh");
+      document.getElementById("langEN").classList.toggle("active", lang === "en");
 
-      document.documentElement.lang = (lang === "zh" ? "zh" : "en");
-      $("soundIcon").textContent = soundOn ? "🔊" : "🔇";
-
-      localStorage.setItem("tt_lang", lang);
-      localStorage.setItem("tt_sound", soundOn ? "on" : "off");
+      // apply all keys
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const v = I18N[lang]?.[key];
+        if (typeof v === "string") el.textContent = v;
+      });
     }
 
-    $("tabRitual").addEventListener("click", ()=>{ setActive($("tabRitual"), $("tabPro")); tg?.HapticFeedback?.impactOccurred?.("light"); });
-    $("tabPro").addEventListener("click", ()=>{ setActive($("tabPro"), $("tabRitual")); tg?.HapticFeedback?.impactOccurred?.("light"); });
+    // Default CN
+    applyI18n("zh");
 
-    $("langCN").addEventListener("click", ()=>{ lang="zh"; setActive($("langCN"), $("langEN")); render(); tg?.HapticFeedback?.impactOccurred?.("light"); });
-    $("langEN").addEventListener("click", ()=>{ lang="en"; setActive($("langEN"), $("langCN")); render(); tg?.HapticFeedback?.impactOccurred?.("light"); });
+    // Language buttons
+    document.getElementById("langZH").addEventListener("click", () => applyI18n("zh"));
+    document.getElementById("langEN").addEventListener("click", () => applyI18n("en"));
 
-    $("helpBtn").addEventListener("click", ()=>{
-      const t = TEXT[lang].helpTitle;
-      const msg = TEXT[lang].help;
-      if (tg?.showPopup) tg.showPopup({ title:t, message: msg, buttons:[{type:"ok"}] });
-      else alert(msg);
+    // Mode buttons (visual only for now)
+    document.getElementById("tabRitual").addEventListener("click", () => {
+      document.getElementById("tabRitual").classList.add("active");
+      document.getElementById("tabPro").classList.remove("active");
+    });
+    document.getElementById("tabPro").addEventListener("click", () => {
+      document.getElementById("tabPro").classList.add("active");
+      document.getElementById("tabRitual").classList.remove("active");
     });
 
-    $("soundBtn").addEventListener("click", ()=>{
+    // Help modal
+    const modalBack = document.getElementById("modalBack");
+    const openHelp = () => { modalBack.style.display = "flex"; if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light"); };
+    const closeHelp = () => { modalBack.style.display = "none"; };
+
+    document.getElementById("helpBtn").addEventListener("click", openHelp);
+    document.getElementById("closeHelp").addEventListener("click", closeHelp);
+    modalBack.addEventListener("click", (e) => { if (e.target === modalBack) closeHelp(); });
+
+    // Sound
+    document.getElementById("soundBtn").addEventListener("click", () => {
       soundOn = !soundOn;
-      render();
-      tg?.HapticFeedback?.impactOccurred?.("light");
+      document.getElementById("soundIcon").textContent = soundOn ? "🔊" : "🔇";
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
     });
 
-    $("activate").addEventListener("click", ()=> tg?.HapticFeedback?.notificationOccurred?.("success"));
-    $("oracleBtn").addEventListener("click", ()=> tg?.HapticFeedback?.impactOccurred?.("light"));
-    $("altarBtn").addEventListener("click", ()=> tg?.HapticFeedback?.impactOccurred?.("light"));
+    // Core buttons (stub)
+    document.getElementById("activate").addEventListener("click", () => {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
+      // Placeholder action
+    });
 
-    $("enterBtn").addEventListener("click", ()=> tg?.HapticFeedback?.notificationOccurred?.("success"));
-    $("waitBtn").addEventListener("click", ()=> tg?.HapticFeedback?.impactOccurred?.("light"));
-    $("skipBtn").addEventListener("click", ()=> tg?.HapticFeedback?.notificationOccurred?.("warning"));
+    document.getElementById("oracle").addEventListener("click", () => {
+      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
+      // Placeholder: could request signal from bot later
+    });
 
-    render();
-    window.addEventListener("contextmenu", e => e.preventDefault());
+    // Chips
+    document.getElementById("chipDay").addEventListener("click", () => {
+      document.getElementById("chipDay").classList.add("active");
+      document.getElementById("chipTon").classList.remove("active");
+    });
+    document.getElementById("chipTon").addEventListener("click", () => {
+      document.getElementById("chipTon").classList.add("active");
+      document.getElementById("chipDay").classList.remove("active");
+    });
+
+    // Actions
+    ["enterBtn","waitBtn","skipBtn"].forEach(id=>{
+      document.getElementById(id).addEventListener("click", ()=>{
+        if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
+      });
+    });
   </script>
 </body>
 </html>
