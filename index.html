@@ -5,98 +5,430 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>TON TEMPLE</title>
   <style>
-    :root{--bg:#070707;--gold:#d8b35a;--text:#f2f2f2}
-    html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 50% 25%,#14110b 0%,var(--bg) 55%,#000 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-    .safe{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);min-height:100%;display:flex;flex-direction:column}
-    header{padding:18px 16px 10px;display:flex;align-items:center;justify-content:space-between;opacity:.95}
-    .brand{display:flex;gap:10px;align-items:center}
-    .badge{width:34px;height:34px;border-radius:50%;border:1px solid rgba(216,179,90,.55);box-shadow:0 0 24px rgba(216,179,90,.18);display:grid;place-items:center;color:var(--gold);font-weight:700}
-    .brand-title{line-height:1.05}
-    .brand-title b{letter-spacing:.8px}
-    .brand-title small{display:block;opacity:.7;font-size:12px;margin-top:2px}
-    main{flex:1;display:grid;place-items:center;padding:18px 16px}
-    .card{width:min(420px,100%);border-radius:22px;border:1px solid rgba(216,179,90,.28);background:linear-gradient(180deg,rgba(20,17,11,.75),rgba(7,7,7,.75));box-shadow:0 20px 60px rgba(0,0,0,.55);padding:18px}
-    .hero{height:260px;border-radius:18px;border:1px solid rgba(216,179,90,.22);background:radial-gradient(160px 120px at 50% 45%,rgba(216,179,90,.22),transparent 60%),radial-gradient(240px 180px at 50% 55%,rgba(216,179,90,.10),transparent 70%),linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.55));display:grid;place-items:center;position:relative;overflow:hidden}
-    .hero:before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0 30%,rgba(216,179,90,.18) 40%,transparent 55% 100%);animation:spin 8s linear infinite;filter:blur(1px);opacity:.8}
-    .sig{position:relative;width:140px;height:140px;border-radius:50%;border:1px solid rgba(216,179,90,.55);box-shadow:0 0 40px rgba(216,179,90,.18);display:grid;place-items:center;color:var(--gold);font-size:56px;font-weight:800;letter-spacing:1px;background:radial-gradient(circle at 30% 30%,rgba(216,179,90,.16),transparent 55%)}
+    :root{
+      --bg:#070707;
+      --gold:#d8b35a;
+      --gold2:#a57c2a;
+      --text:#f2f2f2;
+      --glass: rgba(12,10,6,.52);
+      --line: rgba(216,179,90,.22);
+      --line2: rgba(216,179,90,.35);
+      --shadow: rgba(0,0,0,.62);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0}
+    body{
+      background:
+        radial-gradient(1100px 900px at 50% 10%, rgba(216,179,90,.10), transparent 55%),
+        radial-gradient(900px 700px at 50% 45%, rgba(216,179,90,.07), transparent 60%),
+        radial-gradient(1200px 900px at 50% 105%, rgba(0,0,0,.85), rgba(0,0,0,.95)),
+        linear-gradient(180deg,#080707,#000);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      -webkit-user-select:none; user-select:none;
+      overflow:hidden;
+    }
+
+    /* SAFE AREA */
+    .app{
+      height:100%;
+      padding-top:env(safe-area-inset-top);
+      padding-bottom:env(safe-area-inset-bottom);
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* TOP BAR */
+    .topbar{
+      height:64px;
+      padding:12px 12px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width:160px;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:50%;
+      border:1px solid var(--line2);
+      box-shadow:0 0 22px rgba(216,179,90,.16);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(216,179,90,.20), transparent 55%),
+        rgba(0,0,0,.35);
+      display:grid; place-items:center;
+      color:var(--gold); font-weight:900; font-size:22px;
+    }
+    .brandText{line-height:1.05}
+    .brandText b{letter-spacing:.7px}
+    .brandText small{display:block; opacity:.65; font-size:11px; margin-top:2px}
+
+    .nav{
+      flex:1;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      align-items:center;
+    }
+    .navpill{
+      height:40px;
+      padding:0 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(216,179,90,.08), rgba(0,0,0,.22));
+      display:flex; align-items:center; gap:14px;
+      box-shadow:0 10px 24px var(--shadow);
+    }
+    .navpill .item{
+      font-size:12px;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      opacity:.85;
+      cursor:pointer;
+    }
+    .navpill .item.active{opacity:1; color:var(--gold)}
+    .right{
+      display:flex; align-items:center; gap:8px; min-width:160px; justify-content:flex-end;
+    }
+    .chip{
+      height:36px; padding:0 10px; border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.28);
+      display:flex; align-items:center; gap:8px;
+      font-size:12px; opacity:.9;
+    }
+    .ico{
+      width:36px; height:36px; border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.28);
+      display:grid; place-items:center;
+      cursor:pointer;
+    }
+
+    /* SCENE (DRAGON + WHEEL PLACEHOLDER) */
+    .scene{
+      flex:1;
+      padding:8px 12px 0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      gap:14px;
+      position:relative;
+    }
+    .frame{
+      width:min(520px, 100%);
+      aspect-ratio: 1 / 1.05;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(260px 220px at 50% 40%, rgba(216,179,90,.10), transparent 60%),
+        radial-gradient(800px 600px at 50% 55%, rgba(0,0,0,.40), rgba(0,0,0,.85)),
+        rgba(0,0,0,.35);
+      box-shadow:0 22px 80px rgba(0,0,0,.65);
+      overflow:hidden;
+      position:relative;
+    }
+    .frame:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background:conic-gradient(from 0deg, transparent 0 35%, rgba(216,179,90,.12) 45%, transparent 60% 100%);
+      animation:spin 10s linear infinite;
+      filter:blur(1px);
+      opacity:.85;
+    }
     @keyframes spin{to{transform:rotate(360deg)}}
-    .cta{margin-top:14px;display:grid;gap:10px}
-    .btn{height:52px;border-radius:16px;border:1px solid rgba(216,179,90,.45);background:linear-gradient(180deg,rgba(216,179,90,.18),rgba(165,124,42,.10));color:var(--text);font-weight:650;letter-spacing:.4px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.55)}
-    .sub{opacity:.75;font-size:13px;line-height:1.35;text-align:center}
-    .ritualBox{display:none;margin-top:14px;padding:14px;border-radius:16px;border:1px solid rgba(216,179,90,.22);background:rgba(0,0,0,.25)}
-    .title{font-weight:800;letter-spacing:.6px;margin-bottom:8px}
-    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;opacity:.75;font-size:12px}
-    .pill{border:1px solid rgba(216,179,90,.22);border-radius:999px;padding:6px 10px}
-    .result{white-space:pre-line;line-height:1.45;font-size:14px}
-    .row{display:flex;gap:10px;margin-top:12px}
-    .btn2{flex:1;height:48px;border-radius:14px;border:1px solid rgba(216,179,90,.28);background:rgba(0,0,0,.22);color:var(--text);font-weight:650;cursor:pointer}
-    footer{padding:14px 16px 18px;opacity:.55;font-size:12px;text-align:center}
+
+    /* Placeholder circle where wheel will be */
+    .wheelHolder{
+      position:absolute;
+      left:50%; top:55%;
+      transform:translate(-50%,-50%);
+      width:78%;
+      aspect-ratio:1/1;
+      border-radius:50%;
+      border:1px solid rgba(216,179,90,.25);
+      box-shadow:0 0 40px rgba(216,179,90,.12);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(216,179,90,.12), transparent 55%),
+        radial-gradient(circle at 50% 60%, rgba(0,0,0,.55), rgba(0,0,0,.85));
+      display:grid; place-items:center;
+      z-index:2;
+    }
+    .wheelHolder .mark{
+      font-size:56px; font-weight:900; color:var(--gold); opacity:.9;
+    }
+
+    /* ACTIVATE FLOW button */
+    .cta{
+      width:min(520px, 100%);
+      height:56px;
+      border-radius:18px;
+      border:1px solid rgba(216,179,90,.45);
+      background:linear-gradient(180deg, rgba(216,179,90,.18), rgba(165,124,42,.10));
+      box-shadow:0 14px 40px rgba(0,0,0,.7);
+      color:var(--text);
+      font-weight:800;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+
+    /* ORACLE / ALTAR tabs */
+    .subtabs{
+      width:min(520px, 100%);
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:-2px;
+    }
+    .subtabs .tab{
+      flex:1;
+      height:42px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.25);
+      display:grid; place-items:center;
+      letter-spacing:1.1px;
+      font-size:12px;
+      text-transform:uppercase;
+      opacity:.9;
+      cursor:pointer;
+    }
+    .subtabs .tab.active{
+      border-color:rgba(216,179,90,.35);
+      background:linear-gradient(180deg, rgba(216,179,90,.10), rgba(0,0,0,.28));
+      color:var(--gold);
+    }
+
+    /* GUIDANCE PANEL */
+    .panel{
+      width:min(520px, 100%);
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(12,10,6,.58), rgba(0,0,0,.40));
+      box-shadow:0 22px 70px rgba(0,0,0,.7);
+      padding:14px;
+      margin-top:6px;
+    }
+    .panelTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:10px;
+      font-size:12px;
+      letter-spacing:1.1px;
+      text-transform:uppercase;
+      opacity:.85;
+    }
+    .seg{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    }
+    .seg .pill{
+      height:30px; padding:0 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.22);
+      display:flex; align-items:center;
+      font-size:12px; letter-spacing:.8px;
+      opacity:.9;
+    }
+    .seg .pill.active{
+      border-color:rgba(216,179,90,.35);
+      color:var(--gold);
+    }
+    .body{
+      font-size:13px;
+      line-height:1.45;
+      opacity:.9;
+      margin-bottom:10px;
+    }
+    .metrics{
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;
+    }
+    .metrics .m{
+      height:30px; padding:0 10px; border-radius:999px;
+      border:1px solid rgba(216,179,90,.18);
+      background:rgba(0,0,0,.22);
+      display:flex; align-items:center;
+      font-size:12px; opacity:.85;
+    }
+    .actions{
+      display:flex; gap:10px;
+    }
+    .actions button{
+      flex:1;
+      height:46px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.22);
+      color:var(--text);
+      font-weight:800;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      cursor:pointer;
+      opacity:.95;
+    }
+    .footnote{
+      margin-top:10px;
+      font-size:11px;
+      opacity:.6;
+      text-align:center;
+    }
+
+    /* BOTTOM NAV */
+    .bottom{
+      padding:10px 12px 14px;
+    }
+    .dock{
+      height:68px;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(12,10,6,.60), rgba(0,0,0,.45));
+      box-shadow:0 20px 70px rgba(0,0,0,.75);
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      gap:8px;
+      padding:10px;
+    }
+    .dock .d{
+      flex:1;
+      height:48px;
+      border-radius:18px;
+      border:1px solid transparent;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:2px;
+      cursor:pointer;
+      opacity:.88;
+    }
+    .dock .d b{
+      font-size:11px;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+    .dock .d span{
+      font-size:11px;
+      opacity:.7;
+      letter-spacing:.6px;
+    }
+    .dock .d.active{
+      border-color:rgba(216,179,90,.30);
+      background:rgba(216,179,90,.06);
+      opacity:1;
+      color:var(--gold);
+    }
+
+    /* small phones */
+    @media (max-width:420px){
+      .topbar{height:58px}
+      .navpill{gap:10px; padding:0 10px}
+      .navpill .item{font-size:11px}
+      .logo{width:40px;height:40px}
+      .frame{border-radius:20px}
+    }
   </style>
 </head>
 <body>
-  <div class="safe">
-    <header>
+  <div class="app">
+    <div class="topbar">
       <div class="brand">
-        <div class="badge">財</div>
-        <div class="brand-title">
+        <div class="logo">財</div>
+        <div class="brandText">
           <b>TON TEMPLE</b>
-          <small>Black Gold Ritual Interface</small>
+          <small>Fa Cai Supreme AI</small>
         </div>
       </div>
-      <div style="opacity:.7;font-size:12px;">RU</div>
-    </header>
 
-    <main>
-      <div class="card">
-        <div class="hero"><div class="sig">財</div></div>
+      <div class="nav">
+        <div class="navpill">
+          <div class="item">MODE</div>
+          <div class="item active">RITUAL</div>
+          <div class="item">PRO</div>
+          <div class="item">CN</div>
+          <div class="item">EN</div>
+        </div>
+      </div>
 
-        <div class="cta">
-          <button class="btn" id="openRitual">🏮 Открыть ритуал</button>
+      <div class="right">
+        <div class="ico" title="Sound">🔊</div>
+        <div class="ico" title="Help">?</div>
+      </div>
+    </div>
 
-          <div class="ritualBox" id="ritualScreen">
-            <div class="title">RITUAL</div>
-            <div class="meta">
-              <div class="pill" id="ritualDate">Сегодня</div>
-              <div class="pill" id="ritualStatus">Доступно: 1/день</div>
-            </div>
+    <div class="scene">
+      <div class="frame" aria-label="Dragon + Wheel scene">
+        <div class="wheelHolder" id="wheel">
+          <div class="mark">財</div>
+        </div>
+      </div>
 
-            <div class="result" id="ritualText">Нажми «Получить знак», чтобы увидеть послание дня.</div>
+      <button class="cta" id="activate">ACTIVATE FLOW</button>
 
-            <div class="row">
-              <button class="btn2" id="getSign">Получить знак</button>
-              <button class="btn2" id="backHome">← Назад</button>
-            </div>
+      <div class="subtabs">
+        <div class="tab active">ORACLE</div>
+        <div class="tab">GOLDEN ALTAR</div>
+      </div>
 
-            <div class="sub" style="margin-top:10px;">v0.3 • random + daily limit</div>
+      <div class="panel">
+        <div class="panelTop">
+          <div>FORECAST</div>
+          <div class="seg">
+            <div class="pill active">DAY</div>
+            <div class="pill">TON</div>
+            <div class="pill">LIMIT: <span id="limitTxt" style="margin-left:6px; opacity:.9">0/1</span></div>
           </div>
-
-          <div class="sub">Главный экран → Ритуал → Знак дня</div>
         </div>
-      </div>
-    </main>
 
-    <footer>TON TEMPLE</footer>
+        <div class="body" id="guidanceText">
+          TEMPLE GUIDANCE:<br>
+          Tap ORACLE to receive guidance.<br>
+          Then choose: ENTER / WAIT / SKIP
+        </div>
+
+        <div class="metrics">
+          <div class="m">Market Weather: CALM</div>
+          <div class="m">RiskAura: LOW</div>
+          <div class="m">Flow Window: OPEN</div>
+        </div>
+
+        <div class="actions">
+          <button id="enterBtn">ENTER</button>
+          <button id="waitBtn">WAIT</button>
+          <button id="skipBtn">SKIP</button>
+        </div>
+
+        <div class="footnote">Ritualized interface. Not financial advice.</div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="dock">
+        <div class="d active"><span>殿</span><b>RITUAL</b></div>
+        <div class="d"><span>轮</span><b>WHEEL</b></div>
+        <div class="d"><span>谕</span><b>ORACLE</b></div>
+        <div class="d"><span>坛</span><b>ALTAR</b></div>
+      </div>
+    </div>
   </div>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram?.WebApp;
-    if (tg) { tg.ready(); tg.expand(); }
+    if (tg){ tg.ready(); tg.expand(); }
 
-    const ritualScreen = document.getElementById("ritualScreen");
-    const openBtn = document.getElementById("openRitual");
-    const backBtn = document.getElementById("backHome");
-    const getSignBtn = document.getElementById("getSign");
-    const ritualText = document.getElementById("ritualText");
-    const ritualStatus = document.getElementById("ritualStatus");
-    const ritualDateEl = document.getElementById("ritualDate");
+    // daily limit (same rule as before)
+    const limitTxt = document.getElementById("limitTxt");
+    const guidanceText = document.getElementById("guidanceText");
+    const activate = document.getElementById("activate");
 
     const SIGNS = [
-      "Сегодня твоя сила — в выдержке. Сделай шаг медленно, но точно.\nПоток откроется там, где ты не давишь.",
-      "Сигнал дня: не ускоряй события. Сначала порядок — потом результат.\nОдин верный выбор сильнее десяти попыток.",
-      "Сегодня лучше укреплять позиции, чем рисковать.\nСобери факты — и только потом действуй.",
-      "День для чистого фокуса. Убери лишнее, оставь главное.\nТогда знак станет очевидным.",
-      "Твоя удача включается через дисциплину.\nМеньше эмоций — больше структуры."
+      "Сигнал дня: держи темп. Сначала структура — потом давление.",
+      "Сигнал дня: не расплескай внимание. Один шаг — один результат.",
+      "Сигнал дня: удача любит точность. Сократи лишнее.",
+      "Сигнал дня: укрепляй позиции. Риск — только после ясности.",
+      "Сигнал дня: действуй, когда окно открыто. Не раньше."
     ];
 
     function todayKey(){
@@ -106,63 +438,36 @@
       const da = String(d.getDate()).padStart(2,'0');
       return `${y}-${m}-${da}`;
     }
-
     function loadDaily(){
       const key = "tt_daily_" + todayKey();
-      try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : null;
-      } catch(e) {
-        localStorage.removeItem(key);
-        return null;
-      }
+      try { return JSON.parse(localStorage.getItem(key) || "null"); }
+      catch(e){ localStorage.removeItem(key); return null; }
     }
-
     function saveDaily(payload){
       const key = "tt_daily_" + todayKey();
       localStorage.setItem(key, JSON.stringify(payload));
     }
-
-    function updateUI(){
-      const t = todayKey();
-      ritualDateEl.textContent = t;
-
+    function updateLimit(){
       const saved = loadDaily();
-      if (saved?.text) {
-        ritualText.textContent = saved.text;
-        ritualStatus.textContent = "Знак уже получен (сегодня)";
-        getSignBtn.disabled = true;
-        getSignBtn.style.opacity = 0.55;
+      if (saved?.text){
+        limitTxt.textContent = "1/1";
+        guidanceText.innerHTML = "TEMPLE GUIDANCE:<br><br>" + saved.text.replaceAll("\n","<br>");
       } else {
-        ritualText.textContent = "Нажми «Получить знак», чтобы увидеть послание дня.";
-        ritualStatus.textContent = "Доступно: 1/день";
-        getSignBtn.disabled = false;
-        getSignBtn.style.opacity = 1;
+        limitTxt.textContent = "0/1";
       }
     }
 
-    openBtn.addEventListener("click", () => {
+    activate.addEventListener("click", ()=>{
       if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("medium");
-      ritualScreen.style.display = "block";
-      openBtn.style.display = "none";
-      updateUI();
-    });
-
-    backBtn.addEventListener("click", () => {
-      if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred("light");
-      ritualScreen.style.display = "none";
-      openBtn.style.display = "block";
-    });
-
-    getSignBtn.addEventListener("click", () => {
       const saved = loadDaily();
       if (saved?.text) return;
-
+      const pick = SIGNS[Math.floor(Math.random()*SIGNS.length)];
+      saveDaily({text: pick, ts: Date.now()});
       if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred("success");
-      const pick = SIGNS[Math.floor(Math.random() * SIGNS.length)];
-      saveDaily({ text: pick, ts: Date.now() });
-      updateUI();
+      updateLimit();
     });
+
+    updateLimit();
   </script>
 </body>
 </html>
