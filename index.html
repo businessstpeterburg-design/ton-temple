@@ -39,8 +39,6 @@ align-items:flex-start;
 margin-bottom:16px;
 }
 
-/* LEFT SIDE */
-
 .brand{
 display:flex;
 flex-direction:column;
@@ -81,8 +79,6 @@ font-size:12px;
 color:var(--muted);
 }
 
-/* RIGHT SIDE */
-
 .controls{
 display:flex;
 flex-direction:column;
@@ -103,6 +99,7 @@ border:1px solid rgba(216,179,90,.25);
 font-weight:800;
 font-size:12px;
 white-space:nowrap;
+cursor:pointer;
 }
 
 .pill.active{
@@ -119,6 +116,7 @@ background:rgba(0,0,0,.35);
 display:grid;
 place-items:center;
 font-size:16px;
+cursor:pointer;
 }
 
 /* MAIN */
@@ -145,7 +143,6 @@ inset 0 0 60px rgba(216,179,90,.2);
 font-size:96px;
 font-weight:900;
 color:#f6e2a6;
-
 text-shadow:
 0 0 20px rgba(240,211,139,.7),
 0 0 40px rgba(240,211,139,.3);
@@ -157,14 +154,48 @@ width:100%;
 padding:16px;
 border-radius:999px;
 border:1px solid rgba(216,179,90,.35);
-
-background:
-linear-gradient(180deg,#f0d38b,#b8963e);
-
+background:linear-gradient(180deg,#f0d38b,#b8963e);
 font-weight:900;
 letter-spacing:2px;
-font-size:14px;
+cursor:pointer;
 }
+
+.row2{
+margin-top:12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.btn2{
+padding:14px;
+border-radius:999px;
+border:1px solid rgba(216,179,90,.25);
+background:rgba(0,0,0,.3);
+font-weight:900;
+cursor:pointer;
+}
+
+.card{
+margin-top:14px;
+padding:16px;
+border-radius:20px;
+border:1px solid rgba(216,179,90,.25);
+background:rgba(0,0,0,.3);
+}
+
+.label{margin-top:10px;font-weight:900;}
+.text{margin-top:8px;font-size:15px;}
+.actions{margin-top:12px;display:flex;gap:8px;}
+.act{
+flex:1;
+padding:12px;
+border-radius:999px;
+border:1px solid rgba(216,179,90,.25);
+background:rgba(0,0,0,.3);
+cursor:pointer;
+}
+.foot{margin-top:8px;font-size:12px;color:rgba(255,255,255,.5);}
 
 </style>
 </head>
@@ -175,26 +206,24 @@ font-size:14px;
 
 <div class="header">
 
-<!-- LEFT -->
 <div class="brand">
 <div class="coin">财</div>
-<div class="brandName">TON TEMPLE</div>
-<div class="brandTag">Fa Cai Supreme AI</div>
+<div class="brandName" id="brandName">TON TEMPLE</div>
+<div class="brandTag" id="brandTag">Fa Cai Supreme AI</div>
 </div>
 
-<!-- RIGHT -->
 <div class="controls">
 
 <div class="row">
-<div class="pill active">RITUAL</div>
-<div class="pill">PRO</div>
-<div class="iconBtn">?</div>
+<div class="pill active" id="modeRitual">RITUAL</div>
+<div class="pill" id="modePro">PRO</div>
+<div class="iconBtn" id="helpBtn">?</div>
 </div>
 
 <div class="row">
-<div class="pill active">中文</div>
-<div class="pill">EN</div>
-<div class="iconBtn">🔊</div>
+<div class="pill active" id="langZh">中文</div>
+<div class="pill" id="langEn">EN</div>
+<div class="iconBtn" id="soundBtn">🔊</div>
 </div>
 
 </div>
@@ -205,9 +234,72 @@ font-size:14px;
 <div class="sigilMark">财</div>
 </div>
 
-<button class="cta">ACTIVATE FLOW</button>
+<div class="cta" id="activate">ACTIVATE FLOW</div>
+
+<div class="row2">
+<div class="btn2" id="oracleBtn">ORACLE</div>
+<div class="btn2" id="altarBtn">GOLDEN ALTAR</div>
+</div>
+
+<div class="card">
+<div><b id="forecastTitle">FORECAST</b></div>
+<div class="label" id="guidanceTitle">TEMPLE GUIDANCE:</div>
+<div class="text" id="guidanceText">Signal: don’t scatter attention. One step — one result.</div>
+
+<div class="actions">
+<div class="act" id="enterBtn">ENTER</div>
+<div class="act" id="waitBtn">WAIT</div>
+<div class="act" id="skipBtn">SKIP</div>
+</div>
+
+<div class="foot" id="disclaimer">Ritualized interface. Not financial advice.</div>
+</div>
 
 </div>
 
+<script>
+let lang="en";
+let mode="ritual";
+
+const setActive=(a,b,state)=>{
+a.classList.toggle("active",state);
+b.classList.toggle("active",!state);
+};
+
+document.getElementById("modeRitual").onclick=()=>{
+mode="ritual";
+setActive(modeRitual,modePro,true);
+};
+
+document.getElementById("modePro").onclick=()=>{
+mode="pro";
+setActive(modeRitual,modePro,false);
+};
+
+document.getElementById("langZh").onclick=()=>{
+lang="zh";
+setActive(langZh,langEn,true);
+};
+
+document.getElementById("langEn").onclick=()=>{
+lang="en";
+setActive(langZh,langEn,false);
+};
+
+document.getElementById("helpBtn").onclick=()=>{
+alert("Use ACTIVATE FLOW → then ORACLE or ALTAR");
+};
+
+document.getElementById("soundBtn").onclick=()=>{
+soundBtn.textContent = soundBtn.textContent==="🔊"?"🔇":"🔊";
+};
+
+document.getElementById("activate").onclick=()=>{
+alert("Flow activated");
+};
+</script>
+
 </body>
-</html>
+</html>git add index.html
+git commit -m "full UI + logic"git push
+
