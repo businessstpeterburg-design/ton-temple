@@ -30,7 +30,7 @@ color:var(--text);
 padding:calc(14px + var(--safeT)) 14px calc(18px + var(--safeB));
 }
 
-/* HEADER (НЕ ТРОГАЕМ ЛОГИКУ) */
+/* HEADER */
 
 .header{
 display:flex;
@@ -82,6 +82,7 @@ padding:10px 14px;border-radius:999px;
 background:rgba(0,0,0,.4);
 border:1px solid rgba(216,179,90,.25);
 font-weight:800;font-size:12px;
+cursor:pointer;
 }
 
 .pill.active{
@@ -95,9 +96,10 @@ width:42px;height:42px;border-radius:999px;
 border:1px solid rgba(216,179,90,.3);
 background:rgba(0,0,0,.35);
 display:grid;place-items:center;
+cursor:pointer;
 }
 
-/* ALTAR */
+/* STAGE */
 
 .stage{
 border-radius:26px;
@@ -162,6 +164,7 @@ linear-gradient(180deg,#f0d38b,#b8963e);
 color:#111;
 font-weight:900;
 letter-spacing:2px;
+cursor:pointer;
 
 box-shadow:
 0 20px 50px rgba(0,0,0,.7),
@@ -183,6 +186,7 @@ border-radius:999px;
 border:1px solid rgba(216,179,90,.25);
 background:rgba(0,0,0,.35);
 font-weight:900;
+cursor:pointer;
 }
 
 /* CARD */
@@ -216,6 +220,7 @@ padding:12px;
 border-radius:999px;
 border:1px solid rgba(216,179,90,.25);
 background:rgba(0,0,0,.35);
+cursor:pointer;
 }
 
 .foot{
@@ -234,22 +239,22 @@ color:rgba(255,255,255,.5);
 
 <div class="brand">
 <div class="coin">财</div>
-<div class="brandName">TON TEMPLE</div>
-<div class="brandTag">Fa Cai Supreme AI</div>
+<div class="brandName" id="brandName">TON TEMPLE</div>
+<div class="brandTag" id="brandTag">Fa Cai Supreme AI</div>
 </div>
 
 <div class="controls">
 
 <div class="row">
-<div class="pill active">RITUAL</div>
-<div class="pill">PRO</div>
-<div class="iconBtn">?</div>
+<div class="pill active" id="modeRitual">RITUAL</div>
+<div class="pill" id="modePro">PRO</div>
+<div class="iconBtn" id="helpBtn">?</div>
 </div>
 
 <div class="row">
-<div class="pill active">中文</div>
-<div class="pill">EN</div>
-<div class="iconBtn">🔊</div>
+<div class="pill active" id="langZh">中文</div>
+<div class="pill" id="langEn">EN</div>
+<div class="iconBtn" id="soundBtn">🔊</div>
 </div>
 
 </div>
@@ -262,30 +267,66 @@ color:rgba(255,255,255,.5);
 <div class="sigilMark">财</div>
 </div>
 
-<div class="cta">ACTIVATE FLOW</div>
+<div class="cta" id="activate">ACTIVATE FLOW</div>
 
 <div class="row2">
-<div class="btn2">ORACLE</div>
-<div class="btn2">GOLDEN ALTAR</div>
+<div class="btn2" id="oracleBtn">ORACLE</div>
+<div class="btn2" id="altarBtn">GOLDEN ALTAR</div>
 </div>
 
 <div class="card">
-<div><b>FORECAST</b></div>
-<div class="label">TEMPLE GUIDANCE:</div>
-<div class="text">Signal: don’t scatter attention. One step — one result.</div>
+<div><b id="forecastTitle">FORECAST</b></div>
+<div class="label" id="guidanceTitle">TEMPLE GUIDANCE:</div>
+<div class="text" id="guidanceText">Signal: don’t scatter attention.</div>
 
 <div class="actions">
-<div class="act">ENTER</div>
-<div class="act">WAIT</div>
-<div class="act">SKIP</div>
+<div class="act" id="enterBtn">ENTER</div>
+<div class="act" id="waitBtn">WAIT</div>
+<div class="act" id="skipBtn">SKIP</div>
 </div>
 
-<div class="foot">Ritualized interface. Not financial advice.</div>
-</div>
-
+<div class="foot" id="disclaimer">Not financial advice</div>
 </div>
 
 </div>
+
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+const tg = window.Telegram?.WebApp;
+tg?.ready();
+
+const I18N = {
+zh:{activate:"启动流",enter:"进入",wait:"等待",skip:"跳过"},
+en:{activate:"ACTIVATE FLOW",enter:"ENTER",wait:"WAIT",skip:"SKIP"}
+};
+
+let lang="en";
+
+function applyLang(){
+const t=I18N[lang];
+document.getElementById("activate").innerText=t.activate;
+document.getElementById("enterBtn").innerText=t.enter;
+document.getElementById("waitBtn").innerText=t.wait;
+document.getElementById("skipBtn").innerText=t.skip;
+}
+
+langZh.onclick=()=>{lang="zh";applyLang();}
+langEn.onclick=()=>{lang="en";applyLang();}
+
+helpBtn.onclick=()=>{
+alert(lang==="zh"?"先点启动流":"Tap activate first");
+};
+
+soundBtn.onclick=()=>{
+soundBtn.innerText = soundBtn.innerText==="🔊"?"🔇":"🔊";
+};
+
+applyLang();
+</script>
 
 </body>
-</html>
+</html>git add index.html
+git commit -m "logic fixed + premium UI"
+git push
